@@ -1,2 +1,3 @@
-# TeamX-LastName1-LastName2-LastName3
-Quests repository for Team X
+# Team3-Bukkarayasamudram-Das-Macomber
+
+Quests repository for Team 3
