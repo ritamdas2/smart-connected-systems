@@ -10,15 +10,11 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 ### Objective Criteria
 
-| Objective Criterion | Rating | Max Value |
-| ------------------- | :----: | :-------: |
-| Objective One       |        |     1     |
-| Objective Two       |        |     1     |
-| Objective Three     |        |     1     |
-| Objective Four      |        |     1     |
-| Objective Five      |        |     1     |
-| Objective Six       |        |     1     |
-| Objective Seven     |        |     1     |
+| Objective Criterion                  | Rating | Max Value |
+| ------------------------------------ | :----: | :-------: |
+| 1. Must keep track of time           |        |     1     |
+| 2. Must report time for every second |        |     1     |
+| 3. Must use a servo                  |        |     1     |
 
 ### Qualitative Criteria
 
