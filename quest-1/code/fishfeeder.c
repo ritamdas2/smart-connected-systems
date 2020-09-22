@@ -20,7 +20,8 @@ typedef struct
 // Initialize queue handler for timer-based events
 xQueueHandle timer_queue;
 
-int counter;
+#define FEEDER_INTERVAL 120
+int counter = FEEDER_INTERVAL; //time interval for fish feeder - 2 min for now
 
 // ISR handler
 void IRAM_ATTR timer_group0_isr(void *para)
@@ -80,6 +81,17 @@ static void timer_evt_task(void *arg)
         // Do something if triggered!
         if (evt.flag == 1)
         {
+            if (counter > 0)
+            {
+                printf("counter is: %d\n", counter);
+                counter--;
+            }
+            else
+            {
+                //reset counter back to top
+                counter = FEEDER_INTERVAL;
+                printf("servo moves\n");
+            }
         }
     }
 }
@@ -99,9 +111,16 @@ void app_main(void)
     // - alphanumeric display
 
     init();
+
+    // Create a FIFO queue for timer-based
+    timer_queue = xQueueCreate(10, sizeof(timer_event_t));
+
     //create tasks here for servo, timer and alphnumeric display
     // make timer task with highest priority?
 
     // Create task to handle timer-based events
     xTaskCreate(timer_evt_task, "timer_evt_task", 2048, NULL, configMAX_PRIORITIES - 5, NULL);
+
+    //start 1 sec clock
+    alarm_init();
 }
