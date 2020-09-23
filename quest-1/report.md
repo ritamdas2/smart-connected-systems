@@ -38,6 +38,8 @@ Futhermore, the system could also somehow monitor how much food is exactly dropp
 
 ## Sketches and Photos
 
+![image](https://user-images.githubusercontent.com/35698105/93964006-8467b980-fd2c-11ea-9065-e4b0b1ed2ab4.png)
+
 ## Supporting Artifacts
 
 Video Demonstration:
