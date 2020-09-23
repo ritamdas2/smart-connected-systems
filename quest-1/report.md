@@ -40,6 +40,7 @@ Futhermore, the system could also somehow monitor how much food is exactly dropp
 ## Supporting Artifacts
 
 Video Demonstration:
+
 [![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder")
 
 ## Modules, Tools, Source Used Including Attribution
