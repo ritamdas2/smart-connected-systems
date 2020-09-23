@@ -1,4 +1,4 @@
-# Quest Name
+# Quest 1: Fish Feeder
 
 Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
