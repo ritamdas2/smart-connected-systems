@@ -34,7 +34,7 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 ## Supporting Artifacts
 
-- [Link to video demo](). Not to exceed 120s
+- [![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder"). Not to exceed 120s
 
 ## Modules, Tools, Source Used Including Attribution
 
