@@ -1,10 +1,11 @@
 # Quest 1: Fish Feeder
 
-Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
+Authors: Brian Macomber, Raghurama Bukkarayasamudram, Ritam Das
 
 ## Date: 2020-09-21
 
 ## Summary
+Leveraging the features and power of the ESP32, our team was able to build a timer function to control the actuation of a servo to "feed fish" at regular intervals. We also produced a digital output on the alphanumeric display counting down the time until the next feeding. We drew inspiration and abstracted ideas from previously completed code examples in cluster 1, namely the i2c_display, timer_example, RTOS, and servo skills.
 
 #### Investigative Question
 
@@ -37,6 +38,8 @@ Futhermore, the system could also somehow monitor how much food is exactly dropp
 
 ## Sketches and Photos
 
+![image](https://user-images.githubusercontent.com/35698105/93964006-8467b980-fd2c-11ea-9065-e4b0b1ed2ab4.png)
+
 ## Supporting Artifacts
 
 Video Demonstration:
@@ -49,6 +52,6 @@ Video Demonstration:
 
 - Timer: https://github.com/espressif/esp-idf/tree/17ac4ba/examples/peripherals/timer_group
 - Servo Control: https://github.com/espressif/esp-idf/tree/master/examples/peripherals/mcpwm/mcpwm_servo_control
-- I2C Displau: https://github.com/BU-EC444/code-examples/tree/master/i2c-display
+- I2C Display: https://github.com/BU-EC444/code-examples/tree/master/i2c-display
 
 ---
