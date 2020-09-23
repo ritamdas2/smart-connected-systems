@@ -12,9 +12,9 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 | Objective Criterion                  | Rating | Max Value |
 | ------------------------------------ | :----: | :-------: |
-| 1. Must keep track of time           |        |     1     |
-| 2. Must report time for every second |        |     1     |
-| 3. Must use a servo                  |        |     1     |
+| 1. Must keep track of time           |   1    |     1     |
+| 2. Must report time for every second |   1    |     1     |
+| 3. Must use a servo                  |   1    |     1     |
 
 ### Qualitative Criteria
 
@@ -34,10 +34,14 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 ## Supporting Artifacts
 
-- [![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder"). Not to exceed 120s
+- [![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder")
 
 ## Modules, Tools, Source Used Including Attribution
 
 ## References
+
+- Timer: https://github.com/espressif/esp-idf/tree/17ac4ba/examples/peripherals/timer_group
+- Servo Control: https://github.com/espressif/esp-idf/tree/master/examples/peripherals/mcpwm/mcpwm_servo_control
+- I2C Displau: https://github.com/BU-EC444/code-examples/tree/master/i2c-display
 
 ---
