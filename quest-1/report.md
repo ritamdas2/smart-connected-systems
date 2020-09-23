@@ -6,6 +6,14 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 ## Summary
 
+#### Investigative Question
+
+What approach can you use to make setting the time interval dynamic (not hard coded)? Elaborate.
+
+One approach to setting the time interval dynamically would be to allow the user to enter the length of the timer
+every time the timer finishes. This way there is no hard coded value for the timer, and the user has freedom to start the new fish food timer whenever they want.
+Futhermore, the system could also somehow monitor how much food is exactly dropped in at the last alarm, and calculate the timer until the next food drop based on how much food the fish just recieved.
+
 ## Self-Assessment
 
 ### Objective Criteria
@@ -29,12 +37,10 @@ Authors: Brian Macomber, Raghurama Bukaarayasamudram, Ritam Das
 
 ## Sketches and Photos
 
-<center><img src="./images/ece444.png" width="25%" /></center>  
-<center> </center>
-
 ## Supporting Artifacts
 
-- [![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder")
+Video Demonstration:
+[![](http://img.youtube.com/vi/HcJgBgHboic/0.jpg)](http://www.youtube.com/watch?v=HcJgBgHboic "Team 3: Fish Feeder")
 
 ## Modules, Tools, Source Used Including Attribution
 
