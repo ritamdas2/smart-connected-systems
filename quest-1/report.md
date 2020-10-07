@@ -5,6 +5,7 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, Ritam Das
 ## Date: 2020-09-21
 
 ## Summary
+
 Leveraging the features and power of the ESP32, our team was able to build a timer function to control the actuation of a servo to "feed fish" at regular intervals. We also produced a digital output on the alphanumeric display counting down the time until the next feeding. We drew inspiration and abstracted ideas from previously completed code examples in cluster 1, namely the i2c_display, timer_example, RTOS, and servo skills.
 
 #### Investigative Question
