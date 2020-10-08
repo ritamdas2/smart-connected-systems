@@ -69,4 +69,10 @@ display_console called each sensor function and printed outputs in CSV format.
 
 ## References
 
+esp-idf/examples/peripherals/adc
+
+https://canvasjs.com/javascript-charts/
+
+https://www.w3schools.com/nodejs/default.asp
+
 ---
