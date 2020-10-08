@@ -1,3 +1,4 @@
+//Ritam Das, Brian Macomber, Ram B. 10-07-2020
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
