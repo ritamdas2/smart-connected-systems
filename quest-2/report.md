@@ -64,6 +64,9 @@ In the index.html file, we used Canvas.js to graph the sensor data. To get the d
 
 Upon reading the spec sheets and testing the Ultrasonic sensor and the IR Rangefinder, we believe that the ultrasonic sensor would be more effective, considering it has a larger effective range. The IR rangefinder has an effective distance range of 20cm to 150cm, while the ultrasonic sensor has an effective distance range of 15cm to almost 600cm. We think that accuracy of distance is more important than how fast the data can be sampled since a remote control car will not be moving very fast and the sensors should have enought time to sample correct data.
 
+## Video demo
+[![](http://img.youtube.com/vi/06KJ9zWZSig/0.jpg)](http://www.youtube.com/watch?v=06KJ9zWZSig "EC 444: Team 3 Quest 2 Demo")
+
 ## Sketches and Photos
 
 <center><img src="./images/quest2_circuit.jpg" width="40%" /></center>  
