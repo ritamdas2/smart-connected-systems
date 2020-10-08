@@ -3,11 +3,16 @@ var app = express();
 var path = require("path");
 var fs = require("fs");
 var csv = require("csv-parse");
-
 const SerialPort = require("serialport");
 const Readline = require("@serialport/parser-readline");
+
+//running on mac
 const port = new SerialPort("/dev/cu.SLAB_USBtoUART", { baudRate: 115200 });
+// running on windows
+// const port = new SerialPort("/COM5", { baudRate: 115200 });
+
 const parse = port.pipe(new Readline({ delimiter: "\n" }));
+
 // Read the port data
 port.on("open", () => {
   console.log("serial port open");

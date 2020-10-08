@@ -79,7 +79,7 @@ static uint32_t ultrasonic()
     //Convert adc_reading to voltage in mV
     uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
     //convert voltage to distance in centimeters
-    double distance = (double)voltage / 6.8;
+    double distance = ((double)voltage / 6.8) * 2.54;
     return distance;
 }
 
