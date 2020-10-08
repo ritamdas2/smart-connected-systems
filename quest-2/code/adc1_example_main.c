@@ -79,7 +79,7 @@ static uint32_t ultrasonic()
     //Convert adc_reading to voltage in mV
     uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
     //convert voltage to distance in centimeters
-    double distance = (double)voltage * 3.9;
+    double distance = (double)voltage / 6.8;
     return distance;
 }
 
@@ -127,7 +127,7 @@ static void display_console()
 {
     printf("temperature (C), ultrasonic distance (cm), IR distance (cm)\n");
 
-    uint32_t bat_voltage, temp, us_distance, ir_distance;
+    uint32_t temp, us_distance, ir_distance;
 
     //continuously print sensor readings to the serial port
     while (1)
@@ -137,7 +137,7 @@ static void display_console()
         us_distance = ultrasonic();
         ir_distance = rangefinder();
 
-        printf("Temp: %d, us_distance: %d, ir_distance: %d\n", temp, us_distance, ir_distance);
+        printf("%d,%d,%d\n", temp, us_distance, ir_distance);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
@@ -186,12 +186,12 @@ void app_main(void)
 {
     check_efuse();
 
+    printf("checkpoint 1\n");
+
     //Configure ADC channels for each sensor
     if (unit == ADC_UNIT_1)
     {
         adc1_config_width(ADC_WIDTH_BIT_12);
-        //battery
-        adc1_config_channel_atten(channel1, atten);
         //thermistor
         adc1_config_channel_atten(channel2, atten);
         //ultrasonic
@@ -201,8 +201,6 @@ void app_main(void)
     }
     else
     {
-        //battery
-        adc2_config_channel_atten((adc2_channel_t)channel1, atten);
         //thermistor
         adc2_config_channel_atten((adc2_channel_t)channel2, atten6);
         //ultrasonic
@@ -211,9 +209,15 @@ void app_main(void)
         adc2_config_channel_atten((adc2_channel_t)channel4, atten);
     }
 
+    printf("checkpoint 2\n");
+
     adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
 
+    printf("checkpoint 3\n");
+
     esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
+
+    printf("checkpoint 4\n");
 
     print_char_val_type(val_type);
 
