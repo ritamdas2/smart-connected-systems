@@ -1,3 +1,8 @@
+<!-- 
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 10/8/2020
+Quest 2 - Tactile Internet
+ -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,12 +12,14 @@
       src="https://canvasjs.com/assets/script/canvasjs.min.js"
     ></script>
     <script type="text/javascript">
+      //function that is called every time the page is reloaded
       window.onload = function () {
         function updateChart() {
           // this function reads the current csv data and plots it using CanvasJS
           var dataPoints_1 = [],
             dataPoints_2 = [],
             dataPoints_3 = [];
+          //Query all the data at the localhost:8080/data endpoint
           $.ajax({
             url: "/data",
             success: function (result) {
@@ -35,6 +42,7 @@
                 count += 1;
               });
 
+              // chart that is being plotted
               var chart = new CanvasJS.Chart("chartContainer", {
                 title: {
                   text: "Plotting ESP32 Sensor Data",

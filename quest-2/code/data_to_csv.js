@@ -1,3 +1,9 @@
+/*
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 10/8/2020
+Quest 2 - Tactile Internet
+*/
+
 var express = require("express");
 var app = express();
 var path = require("path");
@@ -18,15 +24,13 @@ fs.truncate("test_data.csv", 0, function () {
   console.log("file cleared");
 });
 
-// Read the port data
+// Read the port data and write to the csv file
 port.on("open", () => {
   console.log("serial port open");
 });
 parse.on("data", (data) => {
-  console.log(data);
   fs.appendFile("test_data.csv", data, function (err) {
     if (err) throw err;
-    console.log("Saved!");
   });
 });
 
@@ -41,11 +45,9 @@ app.get("/data", function (req, res) {
   fs.createReadStream("test_data.csv")
     .pipe(csv())
     .on("data", (row) => {
-      console.log(row);
       data.push(row); // Add row of data to array
     })
     .on("end", () => {
-      console.log("CSV file successfully processed");
       res.send(data); // Send array of data back to requestor
     });
 });

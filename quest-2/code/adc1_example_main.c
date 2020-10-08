@@ -1,4 +1,9 @@
-//Ritam Das, Brian Macomber, Ram B. 10-07-2020
+/*
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 10/8/2020
+Quest 2 - Tactile Internet
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
