@@ -21,8 +21,6 @@ static const adc_atten_t atten = ADC_ATTEN_DB_11;
 static const adc_atten_t atten6 = ADC_ATTEN_DB_6;
 static const adc_unit_t unit = ADC_UNIT_1;
 
-//battery monitor adc
-static const adc_channel_t channel1 = ADC_CHANNEL_3; //GPIO39
 //thermistor monitor adc
 static const adc_channel_t channel2 = ADC_CHANNEL_4; //GPIO32
 //ultrasonic monitor adc
