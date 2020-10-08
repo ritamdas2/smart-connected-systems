@@ -565,3 +565,7 @@ void app_main(void)
     //start 1 sec clock
     alarm_init();
 }
+
+
+// USE Global variable counter to determine when the counter is 0; code checks counter to see if it is 0 
+// at which point, the servo knows to rotate
