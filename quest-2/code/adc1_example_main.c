@@ -186,8 +186,6 @@ void app_main(void)
 {
     check_efuse();
 
-    printf("checkpoint 1\n");
-
     //Configure ADC channels for each sensor
     if (unit == ADC_UNIT_1)
     {
@@ -213,15 +211,9 @@ void app_main(void)
         adc2_config_channel_atten((adc2_channel_t)channel4, atten);
     }
 
-    printf("checkpoint 2\n");
-
     adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
 
-    printf("checkpoint 3\n");
-
     esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
-
-    printf("checkpoint 4\n");
 
     print_char_val_type(val_type);
 
