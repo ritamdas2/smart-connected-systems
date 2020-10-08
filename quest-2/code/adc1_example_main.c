@@ -137,7 +137,7 @@ static void display_console()
         us_distance = ultrasonic();
         ir_distance = rangefinder();
 
-        printf("Temp: %d, us_distance: %d, ir_distance: %d\n", temp, us_distance, ir_distance);
+        printf("%d, %d, %d\n", temp, us_distance, ir_distance);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
