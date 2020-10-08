@@ -9,6 +9,7 @@
     <script type="text/javascript">
       window.onload = function () {
         function updateChart() {
+          // this function reads the current csv data and plots it using CanvasJS
           var dataPoints_1 = [],
             dataPoints_2 = [],
             dataPoints_3 = [];
@@ -17,6 +18,7 @@
             success: function (result) {
               var count = 1;
               jQuery.each(result, function (i, val) {
+                //grabbing csv data for all 3 sensors
                 dataPoints_1.push({
                   x: count,
                   y: parseInt(val[0]),
@@ -92,7 +94,7 @@
                   },
                 ],
               });
-
+              // allows user to hover over data points to see values
               function toogleDataSeries(e) {
                 if (
                   typeof e.dataSeries.visible === "undefined" ||
@@ -108,7 +110,9 @@
             },
           });
         }
+        //initial call to fcn to read and plot
         updateChart();
+        // auto update graph every 2 seconds
         setInterval(function () {
           updateChart();
         }, 2000);
