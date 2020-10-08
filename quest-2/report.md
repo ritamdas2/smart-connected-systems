@@ -33,7 +33,7 @@ We wired three different sensors to the ESP32: a thermistor, an ultrasonic senso
 
 ## Solution Design
 
-#Wiring
+# Wiring
 The thermistor was wired through voltage divider with a 10kohm resistor to step down the voltage from the USB 5V input. The ultrasonic and IR rangefinder sensors were wired directly to 3V and 5V and outputs were sent to adc pins.
 
         //thermistor monitor adc
@@ -43,7 +43,7 @@ The thermistor was wired through voltage divider with a 10kohm resistor to step 
         //rangefinder monitor adc
         static const adc_channel_t channel4 = ADC_CHANNEL_6; //GPIO34
 
-#Sensor Code
+# Sensor Code
 We defined four functions: one for each sensor and a display_console function to call each sensor function and display the latest readings in an easy to read format. 
 
 In the thermistor function, we solved for the thermistor resistance using the voltage divider formula and plugging in our respective values. We then solved for the temperature using the previously calculated values from voltage and resistance. Lastly, the tempKelvin was converted to Celsius for final output.
@@ -52,9 +52,9 @@ In the ultrasonic and IR rangefinder functions we converted the voltage to dista
 
 display_console called each sensor function and printed outputs in CSV format. 
 
-#Node.js & Canvas.js
+# Node.js & Canvas.js
 
-#Investigative Question
+# Investigative Question
 
 ## Sketches and Photos
 
