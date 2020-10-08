@@ -1,4 +1,4 @@
-# Quest Name
+# Quest 2 - Tactile Internet
 
 Authors: Brian Macomber, Ritam Das, Raghurama Bukkarayasamudram
 
@@ -6,21 +6,16 @@ Authors: Brian Macomber, Ritam Das, Raghurama Bukkarayasamudram
 
 ## Summary
 
--
-
 ## Self-Assessment
 
 ### Objective Criteria
 
-| Objective Criterion | Rating | Max Value |
-| ------------------- | :----: | :-------: |
-| Objective One       |        |     1     |
-| Objective Two       |        |     1     |
-| Objective Three     |        |     1     |
-| Objective Four      |        |     1     |
-| Objective Five      |        |     1     |
-| Objective Six       |        |     1     |
-| Objective Seven     |        |     1     |
+| Objective Criterion         | Rating | Max Value |
+| --------------------------- | :----: | :-------: |
+| Reading from Ultrasonic     |   1    |     1     |
+| Reading from IR rangefinder |   1    |     1     |
+| Reading from Thermistor     |   1    |     1     |
+| Graph Sensor readings       |   1    |     1     |
 
 ### Qualitative Criteria
 
@@ -35,7 +30,7 @@ Authors: Brian Macomber, Ritam Das, Raghurama Bukkarayasamudram
 
 ## Sketches and Photos
 
-<center><img src="./images/ece444.png" width="25%" /></center>  
+<center><img src="./images/quest2_circuit.jpg" width="25%" /></center>  
 <center> </center>
 
 ## Supporting Artifacts
