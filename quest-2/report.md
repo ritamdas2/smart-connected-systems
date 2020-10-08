@@ -66,8 +66,8 @@ Upon reading the spec sheets and testing the Ultrasonic sensor and the IR Rangef
 
 ## Sketches and Photos
 
-<center><img src="./images/quest2_circuit.jpg" width="25%" /></center>  
-<center> <img src="./images/quest2_plot.png" width="25%" /></center>
+<center><img src="./images/quest2_circuit.jpg" width="40%" /></center>  
+<center> <img src="./images/quest2_plot.png" width="100%" /></center>
 
 ## Supporting Artifacts
 
