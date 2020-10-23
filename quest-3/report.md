@@ -8,6 +8,8 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, Ritam Das
 
 ## Self-Assessment
 
+# test
+
 ### Objective Criteria
 
 | Objective Criterion | Rating | Max Value |
