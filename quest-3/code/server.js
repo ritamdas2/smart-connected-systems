@@ -1,14 +1,50 @@
-// Here is where all of the front end stuff will happen
-//- Create socket with UDP to talk to esp (recieve sensor data / send intensity data)
-//- Create web page (can take code from prior skill, change port number)
-
-// --------------- code from whizzer for UDP node server
-// Required module
 var dgram = require("dgram");
 
+/*
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 10/8/2020
+Quest 2 - Tactile Internet
+*/
+
+// var express = require("express");
+// var app = express();
+// var path = require("path");
+// var fs = require("fs");
+// var csv = require("csv-parse");
+
+// // clear csv file every time the program is started
+// fs.truncate("test_data.csv", 0, function () {
+//   console.log("file cleared");
+// });
+
+// //add data to csv
+// fs.appendFile("test_data.csv", data, function (err) {
+//   if (err) throw err;
+// });
+
+// // viewed at http://localhost:8080
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname + "/index.html"));
+// });
+
+// // request data at http://localhost:8080/data or just "/data"
+// app.get("/data", function (req, res) {
+//   var data = []; // Array to hold all csv data
+//   fs.createReadStream("test_data.csv")
+//     .pipe(csv())
+//     .on("data", (row) => {
+//       data.push(row); // Add row of data to array
+//     })
+//     .on("end", () => {
+//       res.send(data); // Send array of data back to requestor
+//     });
+// });
+
+// app.listen(8080);
+
 // Port and IP
-var PORT = 3333;
-var HOST = "192.168.1.105";
+var PORT = 1131;
+var HOST = "192.168.7.196"; //ip of my laptop
 
 // Create socket
 var server = dgram.createSocket("udp4");
@@ -25,15 +61,24 @@ server.on("listening", function () {
 server.on("message", function (message, remote) {
   console.log(remote.address + ":" + remote.port + " - " + message);
 
+  //here we can append data to csv file
+
   // Send Ok acknowledgement
-  server.send("Ok!", remote.port, remote.address, function (error) {
-    if (error) {
-      console.log("MEH!");
-    } else {
-      console.log("Sent: Ok!");
+  server.send(
+    "recieved ESP data, sending LED data",
+    remote.port,
+    remote.address,
+    function (error) {
+      if (error) {
+        console.log("MEH!");
+      } else {
+        console.log("Sent: Ok!");
+      }
     }
-  });
+  );
 });
+
+// app.listen(1132);
 
 // Bind server to port and IP
 server.bind(PORT, HOST);
