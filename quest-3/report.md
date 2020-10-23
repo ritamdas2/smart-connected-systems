@@ -6,12 +6,6 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 
 ## Summary
 
-### Web Client
-
-### Node Server
-
-### Embedded System
-
 
 ## Self-Assessment
 
@@ -37,6 +31,13 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 | Quality of video presentation                  |        |     3     |
 
 ## Solution Design
+
+### Web Client
+
+### Node Server
+
+### Embedded System
+
 
 ## Sketches and Photos
 
