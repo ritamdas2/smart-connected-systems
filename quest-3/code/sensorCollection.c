@@ -36,8 +36,8 @@
 // #define EXAMPLE_ESP_WIFI_PASS ""    //this is my wifi, would need to change it to yours
 
 // ----------------------------- WiFi -------------------------------------//
-#define EXAMPLE_ESP_WIFI_SSID "SUPREME-WiFi"
-#define EXAMPLE_ESP_WIFI_PASS "gh7a84VSeW7TgYC"
+#define EXAMPLE_ESP_WIFI_SSID ""
+#define EXAMPLE_ESP_WIFI_PASS ""
 
 #define EXAMPLE_ESP_MAXIMUM_RETRY 5
 static EventGroupHandle_t s_wifi_event_group;
