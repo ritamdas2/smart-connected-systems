@@ -42,7 +42,10 @@ The ESP32 reads from two different sensors (a thermistor and accelerometer) and 
 ### Wiring
 The accelerometer was wired to the ESP32 using SCL and SDA pins with internal 10k pull up resistors. The LED was wired to GPIO12 with internal pull up resistor. The thermistor was wired using voltage divider with 10k resistor. 
 
+![IMG_5695](https://user-images.githubusercontent.com/37518854/97058558-26610880-155c-11eb-9bc0-0d4d7151f3d4.jpeg)
+
 ## Investigative Question
+What are steps you can take to make your device and system low power?
 
 ## Sketches and Photos
 
