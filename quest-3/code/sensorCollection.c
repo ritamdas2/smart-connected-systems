@@ -1,6 +1,6 @@
 //Name: Ritam Das, Brian Macomber, & Ram B.
 //Group 03
-//Date: October 22nd, 2020
+//Date: 10/22/20
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
