@@ -12,7 +12,6 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 
 ### Embedded System
 
-### Wiring
 
 ## Self-Assessment
 
@@ -40,6 +39,8 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 ## Solution Design
 
 ## Sketches and Photos
+
+### Wiring
 
 <center><img src="./images/ece444.png" width="25%" /></center>  
 <center> </center>
