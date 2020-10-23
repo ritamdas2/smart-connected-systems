@@ -8,9 +8,14 @@ var dgram = require("dgram");
 
 var express = require("express");
 var app = express();
+const bodyParser = require("body-parser");
 var path = require("path");
 var fs = require("fs");
 var csv = require("csv-parse");
+
+var backToESP = "0";
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // clear csv file every time the program is started
 fs.truncate("test_data.csv", 0, function () {
@@ -20,6 +25,13 @@ fs.truncate("test_data.csv", 0, function () {
 // viewed at http://localhost:8080
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
+});
+
+app.post("/led", function (req, res) {
+  res.send("Led level: " + req.body.brightness);
+  console.log(req.body.brightness);
+  // send data back to esp
+  backToESP = req.body.brightness;
 });
 
 // request data at http://localhost:8080/data or just "/data"
@@ -62,19 +74,14 @@ server.on("message", function (message, remote) {
     if (err) throw err;
   });
 
-  // Send Ok acknowledgement
-  server.send(
-    "recieved ESP data, sending LED data",
-    remote.port,
-    remote.address,
-    function (error) {
-      if (error) {
-        console.log("MEH!");
-      } else {
-        console.log("Sent: Ok!");
-      }
+  // Send Ok acknowledgement - and send led status back to esp
+  server.send(backToESP, remote.port, remote.address, function (error) {
+    if (error) {
+      console.log("MEH!");
+    } else {
+      console.log("Sent: Ok!");
     }
-  );
+  });
 });
 
 // app.listen(1132);

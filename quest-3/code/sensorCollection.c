@@ -1,6 +1,8 @@
-//Name: Ritam Das, Brian Macomber, & Ram B.
-//Group 03
-//Date: 10/22/20
+/*
+  Name: Ritam Das, Brian Macomber, & Ram B.
+  Group 18
+  Date: October 22nd, 2020
+*/
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -102,6 +104,7 @@ static const adc_unit_t unit = ADC_UNIT_1;
 
 static const char *SOCKET_TAG = "example";
 char payload[20] = "";
+char ledBrightness[2] = "0\0";
 
 static void
 udp_client_task(void *pvParameters)
@@ -157,6 +160,9 @@ udp_client_task(void *pvParameters)
                 rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
                 ESP_LOGI(SOCKET_TAG, "Received %d bytes from %s:", len, host_ip);
                 ESP_LOGI(SOCKET_TAG, "%s", rx_buffer);
+                //change led brightness according to respone from node server
+                strcpy(ledBrightness, rx_buffer);
+
                 if (strncmp(rx_buffer, "OK: ", 4) == 0)
                 {
                     ESP_LOGI(SOCKET_TAG, "Received expected message, reconnecting");
@@ -668,17 +674,26 @@ void app_main()
     while (1)
     {
         float celsius, roll, pitch;
+        int led = atoi(ledBrightness);
         celsius = getTemp();
 
         getAccelParams(&roll, &pitch);
 
         //put data in payload
-        sprintf(payload, "%.2f,%.2f,%.2f", roll, pitch, celsius);
+        sprintf(payload, "%.2f,%.2f,%.2f\n", roll, pitch, celsius);
 
+        // to make sure led doesn't blow or anything
+        if (led < 0)
+        {
+            led = 0;
+        }
+        else if (led > 9)
+        {
+            led = 9;
+        }
         //The LED PWM Controller is designed primarily to drive LEDs. It provides a wide resolution for PWM duty cycle settings. For instance, the PWM frequency of 5 kHz can have the maximum duty resolution of 13 bits. It means that the duty can be set anywhere from 0 to 100% with a resolution of ~0.012% (2 ** 13 = 8192 discrete levels of the LED intensity).
-        //ledc_set_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel, LEDC_TEST_DUTY*num*0.1); //0.1 is to reudce the amount of levels of brightness (can be thousands)
-        //ledc_update_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel);
-        //ledc_set_duty_and_update(ledc_channel[0].speed_mode, ledc_channel[0].channel, LEDC_TEST_DUTY*num*0.1, uint32_t hpoint)
+        ledc_set_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel, LEDC_TEST_DUTY * led * 0.1); //0.1 is to reudce the amount of levels of brightness (can be thousands)
+        ledc_update_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel);
         vTaskDelay(250);
     }
 }
