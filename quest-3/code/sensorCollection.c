@@ -1,8 +1,6 @@
-/*
-  Name: Ritam Das, Brian Macomber, & Ram B.
-  Group 18
-  Date: October 22nd, 2020
-*/
+//Name: Ritam Das, Brian Macomber, & Ram B.
+//Group 03
+//Date: 10/22/20
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
