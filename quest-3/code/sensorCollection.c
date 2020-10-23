@@ -1,5 +1,5 @@
 //Name: Ritam Das, Brian Macomber, & Ram B.
-//Group 18
+//Group 03
 //Date: October 22nd, 2020
 #include <stdio.h>
 #include <math.h>
