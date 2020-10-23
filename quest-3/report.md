@@ -32,11 +32,11 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 
 ## Solution Design
 
-### Web Client
+### Web Client /RAM
 
-### Node Server
+### Node Server /BRIAN
 
-### Embedded System
+### Embedded System /RITAM
 
 
 ## Sketches and Photos
