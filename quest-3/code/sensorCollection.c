@@ -1,7 +1,7 @@
 /*
-  Name: Ritam Das, Brian Macomber, & Ram B.
-  Group 18
-  Date: October 22nd, 2020
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 10/23/2020
+Quest 3 - Hurricane Box
 */
 #include <stdio.h>
 #include <math.h>
