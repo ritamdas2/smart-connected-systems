@@ -59,7 +59,9 @@ What are steps you can take to make your device and system low power?
 ## Modules, Tools, Source Used Including Attribution
 
 Ritam wired the device and wrote the embedded C code.
+
 Brian wrote the node.js server and set up port-forwarding.
+
 Ram wrote the front-end HTML file that plotted sensor data and interacted with the user.
 
 ## References
