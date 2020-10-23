@@ -169,22 +169,6 @@ void wifi_init_sta(void)
     vEventGroupDelete(s_wifi_event_group);
 }
 
-// static void check_efuse(void)
-// {
-//   //Check TP is burned into eFuse
-//   if (esp_adc_cal_check_efuse(ESP_ADC_CAL_VAL_EFUSE_TP) == ESP_OK) {
-//       printf("eFuse Two Point: Supported\n");
-//   } else {
-//       printf("eFuse Two Point: NOT supported\n");
-//   }
-
-//   //Check Vref is burned into eFuse
-//   if (esp_adc_cal_check_efuse(ESP_ADC_CAL_VAL_EFUSE_VREF) == ESP_OK) {
-//       printf("eFuse Vref: Supported\n");
-//   } else {
-//       printf("eFuse Vref: NOT supported\n");
-//   }
-// }
 
 static void print_char_val_type(esp_adc_cal_value_t val_type)
 {
@@ -393,16 +377,6 @@ void calcRP(float x, float y, float z){
   //printf("roll: %.2f \t pitch: %.2f \n", roll, pitch);
 }
 
-// // Task to continuously poll acceleration and calculate roll and pitch
-// static void test_adxl343() {
-//   printf("\n>> Polling ADAXL343\n");
-//   while (1) {
-//     float xVal, yVal, zVal;
-//     getAccel(&xVal, &yVal, &zVal);
-//     calcRP(xVal, yVal, zVal);
-//     vTaskDelay(1000 / portTICK_RATE_MS);
-//   }
-// }
 
 void app_main() {
 
@@ -516,21 +490,6 @@ void app_main() {
       float pitch = atan2((-1*xVal) , sqrt(yVal*yVal + zVal*zVal)) * angle;
       printf("%.2f, %.2f, %f \n", roll, pitch, celsius);
 
-    //   printf("Please enter intensity level from 0 - 9: \n");
-    //   char str[5];
-    //   gets(str);
-    //   int num;
-    //   num = atoi(str); //str to int
-    //   while (num < 0 || num > 9) {
-    //     printf("Not within range. LED still at previous duty. Please enter intensity level from 0 - 9: \n");
-    //     gets(str);
-    //     num = atoi(str); //str to int
-    //   }
-
-      //The LED PWM Controller is designed primarily to drive LEDs. It provides a wide resolution for PWM duty cycle settings. For instance, the PWM frequency of 5 kHz can have the maximum duty resolution of 13 bits. It means that the duty can be set anywhere from 0 to 100% with a resolution of ~0.012% (2 ** 13 = 8192 discrete levels of the LED intensity).
-      //ledc_set_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel, LEDC_TEST_DUTY*num*0.1); //0.1 is to reudce the amount of levels of brightness (can be thousands)
-      //ledc_update_duty(ledc_channel[0].speed_mode, ledc_channel[0].channel);
-      //ledc_set_duty_and_update(ledc_channel[0].speed_mode, ledc_channel[0].channel, LEDC_TEST_DUTY*num*0.1, uint32_t hpoint)
       vTaskDelay(250);
 }
 
