@@ -1,14 +1,20 @@
 # Quest 3 - Hurricane Box
 
-Authors: Brian Macomber, Raghurama Bukkarayasamudram, Ritam Das
+Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 
 ## Date: 2020-10-23
 
 ## Summary
 
-## Self-Assessment
+### Web Client
 
-# test
+### Node Server
+
+### Embedded System
+
+### Wiring
+
+## Self-Assessment
 
 ### Objective Criteria
 
