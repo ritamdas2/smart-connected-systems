@@ -1,46 +1,41 @@
-var dgram = require("dgram");
-
 /*
 Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
-Date: 10/8/2020
-Quest 2 - Tactile Internet
+Date: 10/22/2020
+Quest 3 - Hurricane Box
 */
 
-// var express = require("express");
-// var app = express();
-// var path = require("path");
-// var fs = require("fs");
-// var csv = require("csv-parse");
+var dgram = require("dgram");
 
-// // clear csv file every time the program is started
-// fs.truncate("test_data.csv", 0, function () {
-//   console.log("file cleared");
-// });
+var express = require("express");
+var app = express();
+var path = require("path");
+var fs = require("fs");
+var csv = require("csv-parse");
 
-// //add data to csv
-// fs.appendFile("test_data.csv", data, function (err) {
-//   if (err) throw err;
-// });
+// clear csv file every time the program is started
+fs.truncate("test_data.csv", 0, function () {
+  console.log("file cleared");
+});
 
-// // viewed at http://localhost:8080
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname + "/index.html"));
-// });
+// viewed at http://localhost:8080
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
 
-// // request data at http://localhost:8080/data or just "/data"
-// app.get("/data", function (req, res) {
-//   var data = []; // Array to hold all csv data
-//   fs.createReadStream("test_data.csv")
-//     .pipe(csv())
-//     .on("data", (row) => {
-//       data.push(row); // Add row of data to array
-//     })
-//     .on("end", () => {
-//       res.send(data); // Send array of data back to requestor
-//     });
-// });
+// request data at http://localhost:8080/data or just "/data"
+app.get("/data", function (req, res) {
+  var data = []; // Array to hold all csv data
+  fs.createReadStream("test_data.csv")
+    .pipe(csv())
+    .on("data", (row) => {
+      data.push(row); // Add row of data to array
+    })
+    .on("end", () => {
+      res.send(data); // Send array of data back to requestor
+    });
+});
 
-// app.listen(8080);
+app.listen(8080);
 
 // Port and IP
 var PORT = 1131;
@@ -62,6 +57,10 @@ server.on("message", function (message, remote) {
   console.log(remote.address + ":" + remote.port + " - " + message);
 
   //here we can append data to csv file
+  //add data to csv
+  fs.appendFile("test_data.csv", message, function (err) {
+    if (err) throw err;
+  });
 
   // Send Ok acknowledgement
   server.send(
