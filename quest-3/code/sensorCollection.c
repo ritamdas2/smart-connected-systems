@@ -32,8 +32,8 @@ Quest 3 - Hurricane Box
 #include "driver/uart.h"
 #include "esp_vfs_dev.h"
 
-// #define EXAMPLE_ESP_WIFI_SSID "" //this is my wifi, would need to change it to yours
-// #define EXAMPLE_ESP_WIFI_PASS ""    //this is my wifi, would need to change it to yours
+// #define EXAMPLE_ESP_WIFI_SSID "" //wifi network
+// #define EXAMPLE_ESP_WIFI_PASS "" //network pass
 
 // ----------------------------- WiFi -------------------------------------//
 #define EXAMPLE_ESP_WIFI_SSID ""
