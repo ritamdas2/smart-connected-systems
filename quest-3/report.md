@@ -64,7 +64,7 @@ What are steps you can take to make your device and system low power?
 
 ## Supporting Artifacts
 
-- [Link to video demo](). Not to exceed 120s
+- [![](http://img.youtube.com/vi/7r5HrHVoQv8/0.jpg)](http://www.youtube.com/watch?v=7r5HrHVoQv8 "Quest 3 Team Demo"). Not to exceed 120s
 
 ## Modules, Tools, Source Used Including Attribution
 
