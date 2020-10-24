@@ -5,30 +5,27 @@ Authors: Brian Macomber, Raghurama Bukkarayasamudram, & Ritam Das
 ## Date: 2020-10-23
 
 ## Summary
+
 In this quest, we built a hurricane box that tracks data and communicates information to a web client visualizing this data in graph format. We wired a thermistor and an accelerometer to the ESP32. We also wired an output LED to the ESP32, where a PWM cycle enabled a user to set a desired LED intensity (ranging from 0-9) through the web client. The temperature, and sacceleration data were sent to the node server through a UDP socket and then sent to the front-end and plotted. The front-end also involved a separate port displaying realtime Pi web cam footage. To control the LED from the front-end, we used HTTP post requests, which carried an led signal that was sent back to the ESP32 through the UDP socket. In the front end we plotted real-time sensor data using Canvas.js and embedded a text field to control the LED intensity. The web client was also port forwarded so that the device could be monitored and controlled from any IP.
 
 ## Self-Assessment
 
 ### Objective Criteria
 
-| Objective Criterion | Rating | Max Value |
-| ------------------- | :----: | :-------: |
-| Objective One       |        |     1     |
-| Objective Two       |        |     1     |
-| Objective Three     |        |     1     |
-| Objective Four      |        |     1     |
-| Objective Five      |        |     1     |
-| Objective Six       |        |     1     |
-| Objective Seven     |        |     1     |
+| Objective Criterion                                | Rating | Max Value |
+| -------------------------------------------------- | :----: | :-------: |
+| Control alert LED remotely                         |   1    |     1     |
+| Graph real time data that can be accessed remotely |   1    |     1     |
+| Display live video that can be accessed remotely   |   1    |     1     |
 
 ### Qualitative Criteria
 
 | Qualitative Criterion                          | Rating | Max Value |
 | ---------------------------------------------- | :----: | :-------: |
-| Quality of solution                            |        |     5     |
-| Quality of report.md including use of graphics |        |     3     |
-| Quality of code reporting                      |        |     3     |
-| Quality of video presentation                  |        |     3     |
+| Quality of solution                            |   5    |     5     |
+| Quality of report.md including use of graphics |   3    |     3     |
+| Quality of code reporting                      |   3    |     3     |
+| Quality of video presentation                  |   3    |     3     |
 
 ## Solution Design
 
@@ -36,15 +33,18 @@ In this quest, we built a hurricane box that tracks data and communicates inform
 
 ### Node Server /BRIAN
 
-### Embedded System 
+### Embedded System
+
 The ESP32 reads from two different sensors (a thermistor and accelerometer) and outputs to an LED based on the led intensity inputted by the user on the web client. Code was adapted from skill 13 (thermistor), skill 23 (accelerometer), and skill 24 (PWM to control LED). The section of the file regarding the thermistor converted an adc voltage reading to temperature measured in celsius. The accelerometer invloved multiple functions: one to read from an 8-bit register, one to write to an 8-bit register, one to read 16 bits, two separate functions to calculate acceleration values in the X, Y, and Z directions as well as roll and pitch values. The LED used a PWM cycle which allows the user to set their desired LED intensity on a scale of 0-9 from the web client. The relevant outputs of each function were then printed in csv format from main.
 
 #### Wiring
-The accelerometer was wired to the ESP32 using SCL and SDA pins with internal 10k pull up resistors. The LED was wired to GPIO12 with internal pull up resistor. The thermistor was wired using voltage divider with 10k resistor. 
+
+The accelerometer was wired to the ESP32 using SCL and SDA pins with internal 10k pull up resistors. The LED was wired to GPIO12 with internal pull up resistor. The thermistor was wired using voltage divider with 10k resistor.
 
 ![IMG_5695](https://user-images.githubusercontent.com/37518854/97058558-26610880-155c-11eb-9bc0-0d4d7151f3d4.jpeg)
 
 ## Investigative Question
+
 What are steps you can take to make your device and system low power?
 
 ## Sketches and Photos

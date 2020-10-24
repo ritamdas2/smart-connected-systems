@@ -22,6 +22,8 @@ fs.truncate("test_data.csv", 0, function () {
   console.log("file cleared");
 });
 
+// ************ Web client to get data from and graph ****************** //
+
 // viewed at http://localhost:8080
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -47,7 +49,9 @@ app.get("/data", function (req, res) {
     });
 });
 
-app.listen(8080);
+// ******************************************************** //
+
+// ************ Create socket to communicate with esp ****************** //
 
 // Port and IP
 var PORT = 1131;
@@ -83,8 +87,10 @@ server.on("message", function (message, remote) {
     }
   });
 });
-
-// app.listen(1132);
+// ******************************************************** //
 
 // Bind server to port and IP
 server.bind(PORT, HOST);
+
+//run app
+app.listen(8080);
