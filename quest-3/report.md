@@ -33,7 +33,7 @@ In this quest, we built a hurricane box that tracks data and communicates inform
 
 ## Solution Design
 
-### Web Client /RAM
+### Web Client
 
 The web client (frontend portion) includes three graphs- one main graph that displays temperature, roll, and roll vs time, two others for pitch v. time and roll v. time. All of this is based on real-time data measured in seconds. This was created based on adapted code from the previous quest. The backend portion gets the real-time data from the sensors which was formatted into csv files which was used for the graphs. Likewise, there was a form that uses numeric input that communicates via POST to get the message back to the ESP in order to connect with the LED intensity.
 
