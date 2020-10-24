@@ -35,7 +35,7 @@ The web client (frontend portion) includes three graphs- one main graph that dis
 
 ### Node Server
 
-The node server creates the web client locally on port 8080, and this is port forwarded to http://team3ec444/ddns/net:1131 to be viewed remotely from any IP. On here it creates the '/' endpoint where it renders index.html, the '/data' endpoint where it streams data from the test_data.csv file, and '/led' where it posts the brightness of the led recieved from the user pressing 'submit' on the UI. In addition to this, it creates a socket on local port 1131 to talk as the server through UDP to the ESP-32. It recieves the formatted accelerometer and temperature data, and sends back confirmation along wit the LED brightness so the backend can update the LED. This part utilizes ideas from skill 20 and skill 17 along with helper code about UDP communication from whizzer.
+The node server creates the web client locally on port 8080, and this is port forwarded to http://team3ec444.ddns.net:1131 to be viewed remotely from any IP. On here it creates the '/' endpoint where it renders index.html, the '/data' endpoint where it streams data from the test_data.csv file, and '/led' where it posts the brightness of the led recieved from the user pressing 'submit' on the UI. In addition to this, it creates a socket on local port 1131 to talk as the server through UDP to the ESP-32. It recieves the formatted accelerometer and temperature data, and sends back confirmation along wit the LED brightness so the backend can update the LED. This part utilizes ideas from skill 20 and skill 17 along with helper code about UDP communication from whizzer.
 
 ### Embedded System
 
