@@ -53,6 +53,10 @@ The accelerometer was wired to the ESP32 using SCL and SDA pins with internal 10
 
 What are steps you can take to make your device and system low power?
 
+- One possibility is to turn off sensors when they are not needed
+
+- Turn on wifi only when necessary
+
 ## Sketches and Photos
 
 <center><img src="./images/ece444.png" width="25%" /></center>  
