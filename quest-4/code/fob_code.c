@@ -672,8 +672,8 @@ void app_main()
     xTaskCreate(button_task, "button_task", 1024 * 2, NULL, configMAX_PRIORITIES, NULL);
     xTaskCreate(button_2_task, "button_2_task", 1024 * 2, NULL, configMAX_PRIORITIES, NULL);
 
-    while (1)
-    {
-        // do FSM stuff here
-    }
+    // while (1)
+    // {
+    //   // do FSM stuff here
+    // }
 }
