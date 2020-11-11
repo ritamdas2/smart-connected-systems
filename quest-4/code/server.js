@@ -1,3 +1,9 @@
+/* 
+Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
+Date: 11/13/2020
+Quest 4 - E-Voting v2
+*/
+
 // Here is code for the nodejs server:
 // - create webclient
 // - send and recieve messages from webclient (using socket.io)
