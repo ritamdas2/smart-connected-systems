@@ -663,7 +663,7 @@ void app_main()
     button_init();
 
     //udp client start
-    xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
+    // xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
 
     // Create tasks for receive, send, set gpio, and button
     xTaskCreate(recv_task, "uart_rx_task", 1024 * 4, NULL, configMAX_PRIORITIES, NULL);
