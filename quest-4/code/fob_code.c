@@ -135,8 +135,8 @@ static void IRAM_ATTR gpio_isr_handler(void *arg)
 int state = S0;
 
 // ----------------------------- WiFi -------------------------------------//
-#define EXAMPLE_ESP_WIFI_SSID "SUPREME-WiFi"
-#define EXAMPLE_ESP_WIFI_PASS "gh7a84VSeW7TgYC"
+#define EXAMPLE_ESP_WIFI_SSID ""
+#define EXAMPLE_ESP_WIFI_PASS ""
 
 #define EXAMPLE_ESP_MAXIMUM_RETRY 5
 static EventGroupHandle_t s_wifi_event_group;
