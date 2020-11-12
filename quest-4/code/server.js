@@ -44,7 +44,7 @@ server.on("message", function (message, remote) {
   // Here we want to add the message (vote) to the database
 
   // Send Ok acknowledgement
-  server.send("got that shit", remote.port, remote.address, function (error) {
+  server.send("got it", remote.port, remote.address, function (error) {
     if (error) {
       console.log("MEH!");
     } else {
