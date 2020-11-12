@@ -53,6 +53,10 @@ Also need to implement the finite state machine:
 #include "lwip/sys.h"
 #include <lwip/netdb.h>
 
+//UDP server stuff
+#include <sys/param.h>
+#include "lwip/sockets.h"
+
 //UART
 #include "driver/uart.h"
 #include "esp_vfs_dev.h"
@@ -125,9 +129,10 @@ static void IRAM_ATTR gpio_isr_handler(void *arg)
     xQueueSendFromISR(gpio_evt_queue, &gpio_num, NULL);
 }
 // ---------------------------- FSM ---------------------------------------//
-#define S0 0
-#define S1 1
-#define S2 2
+#define S0 0 // Leader
+#define S1 1 // Voter / non-Leader
+#define S2 2 // Not a leader and not a voter
+int state = S0;
 
 // ----------------------------- WiFi -------------------------------------//
 #define EXAMPLE_ESP_WIFI_SSID ""
@@ -153,18 +158,35 @@ static int s_retry_num = 0;
 
 /// ********* gonna have to change some stuff here with ports and IPs ************
 
-#define HOST_IP_ADDR "192.168.7.196"
-#define PORT 1131
+#define ESP_IP_ADDR "192.168.7.176"  //IP of host ESP
+#define NODE_IP_ADDR "192.168.7.196" // IP of my laptop
+#define PORT_NODE 1131
+
+#define PORT_ESP 3333
+static const char *SERVER_TAG = "SERVER_ESP";
 
 static const char *SOCKET_TAG = "example";
 char payload[20] = "";
-char ledBrightness[2] = "0\0";
+// char ledBrightness[2] = "0\0";
 
 static void
-udp_client_task(void *pvParameters)
+udp_client_task()
 {
+    char host_ip[14];
+    int port = 3333;
+
+    if (state == S0) //leader
+    {
+        port = PORT_NODE;
+        strcpy(host_ip, NODE_IP_ADDR);
+    }
+    else if (state == S1) // non leader
+    {
+        port = PORT_ESP;
+        strcpy(host_ip, ESP_IP_ADDR);
+    }
+
     char rx_buffer[128];
-    char host_ip[] = HOST_IP_ADDR;
     int addr_family = 0;
     int ip_protocol = 0;
 
@@ -172,9 +194,9 @@ udp_client_task(void *pvParameters)
     {
 
         struct sockaddr_in dest_addr;
-        dest_addr.sin_addr.s_addr = inet_addr(HOST_IP_ADDR);
+        dest_addr.sin_addr.s_addr = inet_addr(host_ip);
         dest_addr.sin_family = AF_INET;
-        dest_addr.sin_port = htons(PORT);
+        dest_addr.sin_port = htons(port);
         addr_family = AF_INET;
         ip_protocol = IPPROTO_IP;
 
@@ -184,7 +206,7 @@ udp_client_task(void *pvParameters)
             ESP_LOGE(SOCKET_TAG, "Unable to create socket: errno %d", errno);
             break;
         }
-        ESP_LOGI(SOCKET_TAG, "Socket created, sending to %s:%d", HOST_IP_ADDR, PORT);
+        ESP_LOGI(SOCKET_TAG, "Socket created, sending to %s:%d", host_ip, port);
 
         while (1)
         {
@@ -214,8 +236,10 @@ udp_client_task(void *pvParameters)
                 rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
                 ESP_LOGI(SOCKET_TAG, "Received %d bytes from %s:", len, host_ip);
                 ESP_LOGI(SOCKET_TAG, "%s", rx_buffer);
-                //change led brightness according to respone from node server
-                strcpy(ledBrightness, rx_buffer);
+
+                // //change led brightness according to respone from node server
+                char message[] = "Hello from Cient!";
+                strcpy(rx_buffer, message);
 
                 if (strncmp(rx_buffer, "OK: ", 4) == 0)
                 {
@@ -230,6 +254,112 @@ udp_client_task(void *pvParameters)
         if (sock != -1)
         {
             ESP_LOGE(SOCKET_TAG, "Shutting down socket and restarting...");
+            shutdown(sock, 0);
+            close(sock);
+        }
+    }
+    vTaskDelete(NULL);
+}
+
+static void udp_server_task(void *pvParameters)
+{
+    char rx_buffer[128];
+    char addr_str[128];
+    int addr_family = (int)pvParameters;
+    int ip_protocol = 0;
+    struct sockaddr_in6 dest_addr;
+
+    while (1)
+    {
+
+        if (addr_family == AF_INET)
+        {
+            struct sockaddr_in *dest_addr_ip4 = (struct sockaddr_in *)&dest_addr;
+            dest_addr_ip4->sin_addr.s_addr = htonl(INADDR_ANY);
+            dest_addr_ip4->sin_family = AF_INET;
+            dest_addr_ip4->sin_port = htons(PORT_ESP);
+            ip_protocol = IPPROTO_IP;
+        }
+        else if (addr_family == AF_INET6)
+        {
+            bzero(&dest_addr.sin6_addr.un, sizeof(dest_addr.sin6_addr.un));
+            dest_addr.sin6_family = AF_INET6;
+            dest_addr.sin6_port = htons(PORT_ESP);
+            ip_protocol = IPPROTO_IPV6;
+        }
+
+        int sock = socket(addr_family, SOCK_DGRAM, ip_protocol);
+        if (sock < 0)
+        {
+            ESP_LOGE(SERVER_TAG, "Unable to create socket: errno %d", errno);
+            break;
+        }
+        ESP_LOGI(SERVER_TAG, "Socket created");
+
+#if defined(CONFIG_EXAMPLE_IPV4) && defined(CONFIG_EXAMPLE_IPV6)
+        if (addr_family == AF_INET6)
+        {
+            // Note that by default IPV6 binds to both protocols, it is must be disabled
+            // if both protocols used at the same time (used in CI)
+            int opt = 1;
+            setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+            setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &opt, sizeof(opt));
+        }
+#endif
+
+        int err = bind(sock, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+        if (err < 0)
+        {
+            ESP_LOGE(SERVER_TAG, "Socket unable to bind: errno %d", errno);
+        }
+        ESP_LOGI(SERVER_TAG, "Socket bound, port %d", PORT_ESP);
+
+        while (1)
+        {
+
+            ESP_LOGI(SERVER_TAG, "Waiting for data");
+            struct sockaddr_in6 source_addr; // Large enough for both IPv4 or IPv6
+            socklen_t socklen = sizeof(source_addr);
+            int len = recvfrom(sock, rx_buffer, sizeof(rx_buffer) - 1, 0, (struct sockaddr *)&source_addr, &socklen);
+
+            // Error occurred during receiving
+            if (len < 0)
+            {
+                ESP_LOGE(SERVER_TAG, "recvfrom failed: errno %d", errno);
+                break;
+            }
+            // Data received
+            else
+            {
+                // Get the sender's ip address as string
+                if (source_addr.sin6_family == PF_INET)
+                {
+                    inet_ntoa_r(((struct sockaddr_in *)&source_addr)->sin_addr.s_addr, addr_str, sizeof(addr_str) - 1);
+                }
+                else if (source_addr.sin6_family == PF_INET6)
+                {
+                    inet6_ntoa_r(source_addr.sin6_addr, addr_str, sizeof(addr_str) - 1);
+                }
+
+                rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string...
+                ESP_LOGI(SERVER_TAG, "Received %d bytes from %s:", len, addr_str);
+                ESP_LOGI(SERVER_TAG, "%s", rx_buffer);
+
+                char message[] = "Hello from Server!";
+                strcpy(rx_buffer, message);
+
+                int err = sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, sizeof(source_addr));
+                if (err < 0)
+                {
+                    ESP_LOGE(SERVER_TAG, "Error occurred during sending: errno %d", errno);
+                    break;
+                }
+            }
+        }
+
+        if (sock != -1)
+        {
+            ESP_LOGE(SERVER_TAG, "Shutting down socket and restarting...");
             shutdown(sock, 0);
             close(sock);
         }
@@ -651,7 +781,7 @@ void app_main()
     mux = xSemaphoreCreateMutex();
 
     // start in initial state
-    int state = S0;
+    state = S0;
 
     // initalize the wifi
     initalizeWiFi();
@@ -665,6 +795,14 @@ void app_main()
     //udp client start
     // xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
 
+    // udp server
+    // #ifdef CONFIG_EXAMPLE_IPV4
+    //     xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
+    // #endif
+    // #ifdef CONFIG_EXAMPLE_IPV6
+    //     xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET6, 5, NULL);
+    // #endif
+
     // Create tasks for receive, send, set gpio, and button
     xTaskCreate(recv_task, "uart_rx_task", 1024 * 4, NULL, configMAX_PRIORITIES, NULL);
     xTaskCreate(led_task, "set_traffic_task", 1024 * 2, NULL, configMAX_PRIORITIES, NULL);
@@ -672,8 +810,30 @@ void app_main()
     xTaskCreate(button_task, "button_task", 1024 * 2, NULL, configMAX_PRIORITIES, NULL);
     xTaskCreate(button_2_task, "button_2_task", 1024 * 2, NULL, configMAX_PRIORITIES, NULL);
 
-    // while (1)
-    // {
-    //   // do FSM stuff here
-    // }
+    while (1)
+    {
+        switch (state)
+        {
+        case S0: // Leader
+            // function to create UDP socket (SERVER on port 3333)
+
+            //client to node server
+            // udp_client_task(state);
+            xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
+
+            // Host server on UDP
+            // udp_server_task((void *)AF_INET);
+            xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
+
+            break;
+        case S1: // Voter
+            //function to connect to UDP socket port 333 (CLIENT)
+            //client to esp server
+            udp_client_task(state);
+
+            break;
+        case S2:
+            break;
+        }
+    }
 }
