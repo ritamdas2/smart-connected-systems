@@ -18,13 +18,49 @@ var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
+/////////////////////////////////////////
+// UDP comms with Leader ESP
+/////////////////////////////////////////
+var dgram = require("dgram");
+// Port and IP
+var PORT = 1131;
+var HOST = "192.168.7.196"; //ip of my laptop
+
+// Create socket
+var server = dgram.createSocket("udp4");
+
+// Create server
+server.on("listening", function () {
+  var address = server.address();
+  console.log(
+    "UDP Server listening on " + address.address + ":" + address.port
+  );
+});
+
+// On connection, print out received message
+server.on("message", function (message, remote) {
+  console.log(remote.address + ":" + remote.port + " - " + message);
+
+  // Here we want to add the message (vote) to the database
+
+  // Send Ok acknowledgement
+  server.send("got that shit", remote.port, remote.address, function (error) {
+    if (error) {
+      console.log("MEH!");
+    } else {
+      console.log("Sent: Ok!");
+    }
+  });
+});
+
+// Bind server to port and IP
+server.bind(PORT, HOST);
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+
 // Create or open the underlying LevelDB store
 var db = level("./mydb", { valueEncoding: "json" });
-
-// Random number function -- this is a helper function to generate dummy data
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 // Points to index.html to serve webpage
 app.get("/", function (req, res) {
