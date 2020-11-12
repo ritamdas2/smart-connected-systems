@@ -31,20 +31,87 @@ Quest 4 - E-Voting v2
         -ms-user-select: none;
       }
     </style>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+    
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+    
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
   </head>
 
   <body>
     <!-- HTML layout -->
-    <h1>Example Webpage</h1>
-    <br />
-    <p>Time of new data in ms from some date in 1970s:</p>
-    <div id="message_disp"></div>
-    <div id="chartContainer" style="height: 300px; width: 100%"></div>
 
+    <div id="message_disp"></div>
+    <div id="chartContainer" style="height: 20px; width: 100%"></div>
+    <div class="w3-container">
+    
+      <div class="w3-center">
+        <h1 class="w3-xxxlarge"
+          style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
+          E-Voting V2</h1>
+        <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Rdizzle, Brian Macomber
+        </h1>
+      </div>
+    
+      <div class="w3-padding-32"></div>
+    
+      <div class="w3-center">
+      <div class="w3-padding-16"></div>
+      <div class="w3-responsive w3-card-4 w3-center" style="width:100%;">
+    
+      <h1>Total Vote Information</h1>
+      <table>
+        <tr>
+          <th>Candidate</th>
+          <th>Vote Count</th>
+        </tr>
+        <tr>
+          <td>Red</td>
+        </tr>
+        <tr>
+          <td>Green</td>
+        </tr>
+        <tr>
+          <td>Blue</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div id="chartContainer" style="height: 40px; width: 100%"></div>
+    <h1>Individual Voter Information</h1>
+    <table>
+      <tr>
+        <th>Candidate</th>
+        <th>FOB ID</th>
+        <th>Time Stamp</th>
+      </tr>
+    </table>
     <!-- ***************************** We're not plotting anything so we don't need this *********************  -->
     <!-- Script to handle charting -->
     <script>
-      var dps = [];
+
+    <!-- //database logs each successful vote including time stamp & fob_ID
+      //queries to db shows:
+      //***list of candidates with vote counts
+      //***list of individual votes by ID & time
+      //***Remaining unsubmitted votes (optional)
+      //Command from web interface will reset vote counts as a reset -->
+      
+      <!-- var dps = [];
       var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
         animationEnabled: true,
@@ -67,13 +134,16 @@ Quest 4 - E-Voting v2
           },
         ],
       });
-    </script>
+    </script> -->
 
     <!-- Script to handle socket and also to update chart datapoints -->
     <script>
       var timestamp;
-      var deviceID;
-      var temperature;
+      var fobID;
+      var voteA = Number();
+      var voteB = Number();
+      var voteC = Number();
+
       var socket = io();
       socket.on("message", function (msg) {
         // Parse received message from server
