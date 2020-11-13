@@ -24,7 +24,7 @@ var io = require("socket.io")(http);
 var dgram = require("dgram");
 // Port and IP
 var PORT = 1131;
-var HOST = "192.168.7.196"; //ip of my laptop
+var HOST = "192.168.4.25"; //ip of my laptop
 
 // Create socket
 var server = dgram.createSocket("udp4");
