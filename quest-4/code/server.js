@@ -11,20 +11,24 @@ Quest 4 - E-Voting v2
 // - Add entries (votes) to database once recieved from ESP
 
 //We're going to addapt code from an example that Matt gave:
-// Modules
+/////////////////////////////////////////////////////////
+//                      Modules                       //
+/////////////////////////////////////////////////////////
+
 var level = require("level");
 var express = require("express");
 var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+var rimraf = require("rimraf");
 
 /////////////////////////////////////////
 // UDP comms with Leader ESP
-/////////////////////////////////////////
+
 var dgram = require("dgram");
 // Port and IP
 var PORT = 1131;
-var HOST = "192.168.4.25"; //ip of my laptop
+var HOST = "192.168.7.196"; //ip of my laptop
 
 // Create socket
 var server = dgram.createSocket("udp4");
@@ -40,10 +44,6 @@ server.on("listening", function () {
 // Create or open the underlying LevelDB store
 var db = level("./mydb", { valueEncoding: "json" });
 
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // On connection, print out received message
 server.on("message", function (message, remote) {
   console.log(remote.address + ":" + remote.port + " - " + message);
@@ -52,33 +52,21 @@ server.on("message", function (message, remote) {
   var date = Date.now();
 
   // Fill in data structure
-  var value = [{ id: message[0], vote: message[3] }];
+  var value = [
+    {
+      id: String.fromCharCode(message[0]),
+      vote: String.fromCharCode(message[2]),
+    },
+  ];
 
   // Here we want to add the message (vote) to the database
   db.put([date], value, function (err) {
     if (err) return console.log("Ooops!", err); // some kind of I/O error
   });
-  // Parse data to send to client
-  var msg = { [date]: value };
 
-  // Send to client
-  io.emit("message", msg);
-
-  // Log to console
-  console.log(Object.keys(msg));
-
-  // Send Ok acknowledgement
-  server.send("got it", remote.port, remote.address, function (error) {
-    if (error) {
-      console.log("MEH!");
-    } else {
-      console.log("Sent: Ok!");
-    }
-  });
+  //send database with all new entires to the front end
+  readDB();
 });
-
-// Bind server to port and IP
-server.bind(PORT, HOST);
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
@@ -110,51 +98,44 @@ function readDB(arg) {
 }
 
 // When a new client connects
-var clientConnected = 0; // this is just to ensure no new data is recorded during streaming
+
 io.on("connection", function (socket) {
   console.log("a user connected");
-  clientConnected = 0;
 
   // Call function to stream database data
   readDB();
-  clientConnected = 1;
+
+  socket.on("flag", function (data) {
+    console.log("reset!");
+  });
+
   socket.on("disconnect", function () {
     console.log("user disconnected");
   });
 });
 
+//get message from front end
+io.on("message", function (msg) {
+  console.log("recieved msg: " + msg);
+  //delete database here, then create new one
+  rimraf("./mydb", function () {
+    console.log("done");
+  });
+
+  //create new one
+  // var db = level("./mydb", { valueEncoding: "json" });
+
+  //call readDB to stream new database to front end
+  readDB();
+});
+
+///////////////////////////////////////
+//          MAIN                    //
+///////////////////////////////////////
+// Bind server to port and IP
+server.bind(PORT, HOST);
+
 // Listening on localhost:3000
 http.listen(3000, function () {
   console.log("listening on *:3000");
 });
-
-// *********************************** //
-// We probably won't use this
-// *********************************** //
-
-// Every 15 seconds, write random information
-function intervalFunc() {
-  if (clientConnected == 1) {
-    // Get current time
-    var date = Date.now();
-
-    // Fill in data structure
-    var value = [{ id: 1, temp: getRndInteger(30, 80) }];
-
-    // Put structure into database based on key == date, and value
-    db.put([date], value, function (err) {
-      if (err) return console.log("Ooops!", err); // some kind of I/O error
-    });
-
-    // Parse data to send to client
-    var msg = { [date]: value };
-
-    // Send to client
-    io.emit("message", msg);
-
-    // Log to console
-    console.log(Object.keys(msg));
-  }
-}
-// Do every 1500 ms
-setInterval(intervalFunc, 1500);
