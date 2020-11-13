@@ -63,6 +63,7 @@ Quest 4 - E-Voting v2
 
       var socket = io();
       socket.on("message", function (msg) {
+        io.emit('Sample message', {message: msg.message});
         // Parse received message from server
         console.log(msg);
         timestamp = Object.keys(msg)[0];
@@ -79,6 +80,7 @@ Quest 4 - E-Voting v2
           Blue = Blue + 1;
 
       });
+
     </script>
 
   <body>
