@@ -50,6 +50,37 @@ Quest 4 - E-Voting v2
     </style>
   </head>
 
+    <script type="text/javascript">
+      var timestamp;
+      var fobID;
+      var Red = 0;
+      var Green = 0;
+      var Blue = 0;
+
+      function docWrite(variable) {
+        document.write(variable)
+      }
+
+      var socket = io();
+      socket.on("message", function (msg) {
+        // Parse received message from server
+        console.log(msg);
+        timestamp = Object.keys(msg)[0];
+        fobID = msg[Object.keys(msg)][3].id;
+        vote = msg[Object.keys(msg)][6].vote;
+
+        document.getElementById("message_disp").innerHTML = Object.keys(msg);
+
+        if (vote == 'R') {
+          Red = Red + 1;
+        } else if (vote == 'G') {
+          Green = Green + 1;
+        } else
+          Blue = Blue + 1;
+
+      });
+    </script>
+
   <body>
     <!-- HTML layout -->
           <div class="w3-center">
@@ -111,20 +142,20 @@ Quest 4 - E-Voting v2
         <tr>
           <td>Red</td>
           <td><script>
-            Red
+            docWrite(Red);
           </script></td>
         </tr>
         <tr>
           <td>Green</td>
           <td><script>
-            Green  
+            docWrite(Green);
           </script>
           </td>
         </tr>
         <tr>
           <td>Blue</td>
           <td><script>
-            Blue  
+            docWrite(Blue);
           </script></td>
         </tr>
       </table>
@@ -142,7 +173,17 @@ Quest 4 - E-Voting v2
       <tr>
         <th>
           <script>
-            document.getElementById("message_disp").innerHTML = Object.keys(msg);          
+            docWrite(Vote);
+          </script>
+        </th>
+        <th>
+          <script>
+            docWrite(fobID);
+          </script>
+        </th>
+        <th>
+          <script>
+            docWrite(timestamp);
           </script>
         </th>
       </tr>
@@ -161,7 +202,7 @@ Quest 4 - E-Voting v2
       //***Remaining unsubmitted votes (optional)
       //Command from web interface will reset vote counts as a reset -->
 
-    <!--<script>
+    <!--<scrip>
       var dps = [];
       var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
@@ -185,46 +226,9 @@ Quest 4 - E-Voting v2
           },
         ],
       });
-    </script> -->
+    </scrip> -->
 
     <!-- Script to handle socket and also to update chart datapoints -->
-    <script type = "text/javascript">
-      var timestamp;
-      var fobID;
-      var Red = 0;
-      var Green = 0;
-      var Blue = 0;
 
-      function docWrite(variable) {
-        document.write(variable)
-      }
-
-
-      var socket = io();
-      socket.on("message", function (msg) {
-        // Parse received message from server
-        console.log(msg);
-        timestamp = Object.keys(msg)[0];
-        fobID = msg[Object.keys(msg)][3].id;
-        vote = msg[Object.keys(msg)][6].vote;
-        
-        document.getElementById("message_disp").innerHTML = Object.keys(msg);
-        
-        if (vote=='R') {
-          Red=Red+1;
-        } else if (vote == 'G') {
-          Green = Green+1;
-        } else 
-          Blue = Blue+1;
-
-        // Update data array
-        dps.push({
-          voteA: timestamp / 1000,
-          y: temperature,
-        });
-
-        chart.render();
-      });
-    </script>
   </body>
 </html>
