@@ -31,7 +31,7 @@ Authors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 
 ## Solution Design
 
-####Investigative Question: List 5 different ways that you can hack the system (including influencing the vote outcome or preventing votes via denial of service). Explain how you would mitigate these issues in your system.
+#### Investigative Question: List 5 different ways that you can hack the system (including influencing the vote outcome or preventing votes via denial of service). Explain how you would mitigate these issues in your system.
 
 There are three main areas of our system that present vulnerabilities: the receiver/transmitter communication, the UDP socket communication, and the web client. 
 
