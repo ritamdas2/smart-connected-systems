@@ -65,6 +65,9 @@ Quest 4 - E-Voting v2
       socket.on("message", function (msg) {
         io.emit('Sample message', {message: msg.message});
         // Parse received message from server
+        socket.on('Query', function(msg) {
+          console.log(msg.message);
+        });
         console.log(msg);
         timestamp = Object.keys(msg)[0];
         fobID = msg[Object.keys(msg)][3].id;
