@@ -129,6 +129,11 @@ Quest 4 - E-Voting v2
         <th>FOB ID</th>
         <th>Time Stamp</th>
       </tr>
+      <tr>
+        <script type="text/javascript">
+          <th>docWrite(msg)</th>
+        </script>
+      </tr>
     </table>
     <!-- ***************************** We're not plotting anything so we don't need this *********************  -->
     <!-- Script to handle charting -->
@@ -171,25 +176,31 @@ Quest 4 - E-Voting v2
     </script> -->
 
     <!-- Script to handle socket and also to update chart datapoints -->
-    <script>
+    <script type = "text/javascript">
       var timestamp;
       var fobID;
       var voteA = Number();
       var voteB = Number();
       var voteC = Number();
 
+      function docWrite(variable) {
+        document.write(variable)
+      }
+
+
       var socket = io();
       socket.on("message", function (msg) {
         // Parse received message from server
         console.log(msg);
-        timestamp = Object.keys(msg);
-        deviceID = msg[Object.keys(msg)][0].id;
-        temperature = msg[Object.keys(msg)][0].temp;
+        //<!-- timestamp = Object.keys(msg)[0];
+        //fobID = msg[Object.keys(msg)][3].id;
+        //vote = msg[Object.keys(msg)][6].vote; -->
         document.getElementById("message_disp").innerHTML = Object.keys(msg);
+        
 
         // Update data array
         dps.push({
-          x: timestamp / 1000,
+          voteA: timestamp / 1000,
           y: temperature,
         });
 
