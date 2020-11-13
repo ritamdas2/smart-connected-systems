@@ -1,4 +1,4 @@
-# Quest Name
+# Quest 4: E-Voting V2
 
 Authors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 
