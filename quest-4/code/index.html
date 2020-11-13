@@ -22,7 +22,7 @@ Quest 4 - E-Voting v2
     Source for Canvas JS - points to the web - needs internet
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <!-- Source for Socket.io - this one is local -->
-    <script src="/socket.io/socket.io.js"></script>
+    <scrip src="/socket.io/socket.io.js"></scrip>
 
     <style>
       canvas {
@@ -53,18 +53,49 @@ Quest 4 - E-Voting v2
 
   <body>
     <!-- HTML layout -->
+          <div class="w3-center">
+            <h1 class="w3-xxxlarge"
+              style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
+              E-Voting V2</h1>
+            <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Rdizzle, Brian Macomber
+            </h1>
+          </div>
+          <h1>Total Vote Information</h1>
+        <div id="ResetButton" align = "center" style="height: 60px; width: 1500px">
+        
+          <head>
+            <style>
+              .button {
+                border: none;
+                color: black;
+                padding: 15px 32px;
+                text-align: center;
+                text - decoration: none;
+                display: inline - block;
+                font - size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+              }
+        
+              .button1 {
+                background - color: #4CAF50;
+              }
+        
+              /* Green */
+              }
+            </style>
+          </head>
+        
+          <body>
+            <button class="button button1">Reset</button>
+          </body>
+        </div>
 
     <div id="message_disp"></div>
-    <div id="chartContainer" style="height: 20px; width: 100%"></div>
+    <div id="chartContainer" style="height: 0px; width: 100%"></div>
     <div class="w3-container">
     
-      <div class="w3-center">
-        <h1 class="w3-xxxlarge"
-          style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
-          E-Voting V2</h1>
-        <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Rdizzle, Brian Macomber
-        </h1>
-      </div>
+
     
       <div class="w3-padding-32"></div>
     
@@ -72,7 +103,7 @@ Quest 4 - E-Voting v2
       <div class="w3-padding-16"></div>
       <div class="w3-responsive w3-card-4 w3-center" style="width:100%;">
     
-      <h1>Total Vote Information</h1>
+      
       <table>
         <tr>
           <th>Candidate</th>
@@ -102,15 +133,19 @@ Quest 4 - E-Voting v2
     </table>
     <!-- ***************************** We're not plotting anything so we don't need this *********************  -->
     <!-- Script to handle charting -->
-    <script>
 
-    <!-- //database logs each successful vote including time stamp & fob_ID
+
+
+      
+<!--
+      //database logs each successful vote including time stamp & fob_ID
       //queries to db shows:
       //***list of candidates with vote counts
       //***list of individual votes by ID & time
       //***Remaining unsubmitted votes (optional)
       //Command from web interface will reset vote counts as a reset -->
-      
+
+    <script>
       <!-- var dps = [];
       var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
