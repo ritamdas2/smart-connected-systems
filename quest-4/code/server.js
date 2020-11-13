@@ -37,11 +37,32 @@ server.on("listening", function () {
   );
 });
 
+// Create or open the underlying LevelDB store
+var db = level("./mydb", { valueEncoding: "json" });
+
 // On connection, print out received message
 server.on("message", function (message, remote) {
   console.log(remote.address + ":" + remote.port + " - " + message);
 
+  // Get current time
+  var date = Date.now();
+
+  // Fill in data structure
+  var value = [{ id: message[0], vote: message[3] }];
+
   // Here we want to add the message (vote) to the database
+  db.put([date], value, function (err) {
+    if (err) return console.log("Ooops!", err); // some kind of I/O error
+  });
+      // Parse data to send to client
+      var msg = { [date]: value };
+
+      // Send to client
+      io.emit("message", msg);
+  
+      // Log to console
+      console.log(Object.keys(msg));
+
 
   // Send Ok acknowledgement
   server.send("got it", remote.port, remote.address, function (error) {
@@ -59,8 +80,6 @@ server.bind(PORT, HOST);
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 
-// Create or open the underlying LevelDB store
-var db = level("./mydb", { valueEncoding: "json" });
 
 // Points to index.html to serve webpage
 app.get("/", function (req, res) {
