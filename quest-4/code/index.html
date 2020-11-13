@@ -130,6 +130,8 @@ Quest 4 - E-Voting v2
         <script>
           function Reset() {
             //this is where socket io resets
+            var flag = "Flag";
+            io.emit("message", flag);
           }
         </script>
 
