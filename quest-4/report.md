@@ -28,10 +28,10 @@ Quest 4 required us to create multiple voting fobs using ESP32's that would comm
 
 | Qualitative Criterion                          | Rating | Max Value |
 | ---------------------------------------------- | :----: | :-------: |
-| Quality of solution                            |        |     5     |
-| Quality of report.md including use of graphics |        |     3     |
-| Quality of code reporting                      |        |     3     |
-| Quality of video presentation                  |        |     3     |
+| Quality of solution                            |   4    |     5     |
+| Quality of report.md including use of graphics |   3    |     3     |
+| Quality of code reporting                      |   3    |     3     |
+| Quality of video presentation                  |   3    |     3     |
 
 ## Solution Design
 
@@ -45,6 +45,8 @@ The server.js file creates the web client and reads in a time stamp, fob id, and
 
 ` db - Key : Value`
 `{ time: [ date.now() ], fobID: [1], vote: [R] }`
+
+### Front End
 
 The data is queried and a message is emitted to the frontend. The frontend consists of an index.html file that displays these database queries in tabular format. Socket.io was used to send data from the fobs to the web client. The web client also contains a reset button that wipes the DB clean and allows for a new election.
 The actual web client is being hosted on a local machine accessed through the server port. It refreshes every couple of seconds with the updated data or votes that are being sent in from the backend. When you press the reset button, it will send a message from the frontend to the backend using io.emit from the socket.io tool to delete the data being stored in the database.
