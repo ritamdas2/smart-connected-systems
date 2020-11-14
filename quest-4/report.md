@@ -64,7 +64,7 @@ UDP communication is also vulnerable to packet sniffing. An unauthorized user co
 
 An unauthorized user also has the potential to log into the Pi directly and read into the database and server code. This could result in tampered data and unauthorized admin access. To prevent this, the wireless network the Pi is connected to should be setup for the WPA2 security mode, which is a much stronger security mode than WEP (currently being used & can be brute forced easily).  
 
-An unauthorized user could even steal the microSD card on the Pi and decode the information on there through another computer. We could mitigate the risk here by encrypting the microSD to add an extra layer of security and lock the information held on the SD card in the case it is stolen,
+An unauthorized user could even steal the microSD card on the Pi and decode the information on there through another computer. We could mitigate the risk here by encrypting the microSD to add an extra layer of security and lock the information held on the SD card in the case it is stolen.
 
 
 ## Sketches and Photos
