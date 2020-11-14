@@ -73,8 +73,11 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 
 ![Screen Shot 2020-11-13 at 7 07 56 PM](https://user-images.githubusercontent.com/37518854/99132348-d9fd6b80-25e3-11eb-9b42-1e4706170aac.png)
 
-<center><img src="./images/ece444.png" width="25%" /></center>  
-<center> </center>
+#### Web Client
+
+In a perfect world, this is what the front end would look like if the functionality was 100%.
+
+<center> <img src="./images/front-end.png" width="25%" /></center>
 
 ## Supporting Artifacts
 
