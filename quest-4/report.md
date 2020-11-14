@@ -77,7 +77,7 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 
 In a perfect world, this is what the front end would look like if the functionality was 100%.
 
-<center> <img src="./images/front-end.png" width="25%" /></center>
+<center> <img src="./images/front-end.png" width="50%" /></center>
 
 ## Supporting Artifacts
 
