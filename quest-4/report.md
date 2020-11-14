@@ -74,7 +74,12 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 
 ## Supporting Artifacts
 
+#### Quest 4 Team Presentation
+
 - [![](http://img.youtube.com/vi/LrQbjpa0aJw/0.jpg)](http://www.youtube.com/watch?v=LrQbjpa0aJw "Quest 4 Team Presentation").
+
+#### Quest 4 Demo
+
 - [![](http://img.youtube.com/vi/1_ioFwz3aYM/0.jpg)](http://www.youtube.com/watch?v=1_ioFwz3aYM "Quest 4 Demo").
 
 ## Modules, Tools, Source Used Including Attribution
