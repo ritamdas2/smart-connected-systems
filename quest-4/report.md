@@ -38,7 +38,7 @@ Quest 4 required us to create multiple voting fobs using ESP32's that would comm
 ### Hardware & Embedded C
 ***************BRI ANNE************* add esp code/hardware info
 ### Node.js & Web Client
-The server.js file reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server also puts this info into a LevelDB in json format. 
+The server.js file reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server creates a DB and puts this info into the DB in json format. 
 
 ` db - Key : Value`
    `{
@@ -47,7 +47,7 @@ The server.js file reads in a time stamp, fob id, and vote from the ESP32 throug
         vote: [R]
     }`
 
-
+The data is queried and a message is emitted to the frontend. The frontend consists of an index.html file that displays these database queries in tabular format. Socket.io was used to send data from the fobs to the web client. The web client also contains a reset button that wipes the DB clean and allows for a new election.
 ********************RAGU******************* add web client info
 
 
