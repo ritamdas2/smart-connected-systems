@@ -10,7 +10,8 @@ Also
 
 **\*\*\***Brian: fob code********\*********
 
-**\*\*\*\***Ritam: Server code******\*\*\*\*******
+Ritam: The server.js file was responsible for the following: creating the webclient, sending and receiving messages from the webclient using socket.io, creating the database, and adding entries (votes) to the database once they were received from the leader ESP. The server also emitted a message to the frontend containing the desired queries. 
+
 
 ****\*\*****Ram: Front End Code******\*\*******
 
