@@ -48,6 +48,7 @@ The server.js file reads in a time stamp, fob id, and vote from the ESP32 throug
     }`
 
 The data is queried and a message is emitted to the frontend. The frontend consists of an index.html file that displays these database queries in tabular format. Socket.io was used to send data from the fobs to the web client. The web client also contains a reset button that wipes the DB clean and allows for a new election.
+
 ********************RAGU******************* add web client info
 
 
