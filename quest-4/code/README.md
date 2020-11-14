@@ -1,18 +1,10 @@
 # Code Readme
 
-Please describe what is in your code folder and subfolders. Make it
-easy for us to navigate this space.
+### Brian: fob_code.c
 
-Also
+### Ritam: server.js
 
-- Please provide your name and date in any code submitted
-- Indicate attributrion for any code you have adopted from elsewhere
-
-**\*\*\***Brian: fob code********\*********
-
-**\*\*\*\***Ritam: Server code******\*\*\*\*******
-
-****\*\*****Ram: Front End Code******\*\*******
+### Ram: index.html:
 
 The frontend aspect of this Quest revolved around getting the proper queries from the server to be displayed on the client. We set up the format of the html file to have two tables (one for candidate and total votes, one for the entire database), and a reset button.
 We used socket.io with our levelDB queries in order to retrieve the data properly. The format of the message being sent from the server would be given in a specific array which we would have to properly index into. We created different variables to hold different values from the respective array index. This allowed us to see when a message was being sent over- or in this case, when a vote was being cast.

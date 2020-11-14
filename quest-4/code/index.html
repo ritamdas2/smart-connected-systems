@@ -18,8 +18,7 @@ Quest 4 - E-Voting v2
         width: 100%;
       }
     
-      td,
-      th {
+      td, th {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
@@ -28,97 +27,41 @@ Quest 4 - E-Voting v2
       tr:nth-child(even) {
         background-color: #dddddd;
       }
-      
+
+      .button {
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline - block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+
+      .button1 {
+        background-color: #4CAF50;
+      }
     </style>
+  
   </head>
 
-  
-  <body onload="loaded()">
+  <body>
     <!-- HTML layout -->
-    <script>
-      var Red=0, Blue=0, Green=0;
- 
-      function loaded(){
-        var socket = io();
-          var timestamp;
-          var fobID;
-          var Flag = 0;
- 
-    
-          socket.on("new", function (msg) {
-            // Parse received message from server
-     
-            // console.log(msg);
-            timestamp = Object.keys(msg)[0];
-            fobID = msg[Object.keys(msg)][0].id;
-            vote = msg[Object.keys(msg)][0].vote;
-    
-            // document.getElementById("message_disp").innerHTML = vote;
-    
-            if (vote == 'R') {
-              Red = Red + 1;
-            } else if (vote == 'G') {
-              Green = Green + 1;
-            } else{
-              Blue = Blue + 1;
-            }
-            if (flag){
-              socket.emit("flag", 1);
-              Flag = 0
-            }
-
-
-          });
-        }
-        // setInterval(loaded,1000);
-      </script>
    
-          <div class="w3-center">
-            <h1 class="w3-xxxlarge"
-              style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
-              E-Voting V2</h1>
-            <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Ritam Das, Brian Macomber
-            </h1>
-          </div>
-          <h1>Total Vote Information</h1>
-        <div id="ResetButton" align="center" style="height: 60px; width: 1500px">
-        
-          <head>
-            <style>
-              .button {
-                border: none;
-                color: black;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline - block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-              }
-        
-              .button1 {
-                background-color: #4CAF50;
-              }
-
-        
-              /* Green */
-            
-            </style>
-          </head>
-        
-         
-            <button class="button button1">Reset</button>
-            <button1 onclick = "Reset()">
-        
+        <div class="w3-center">
+          <h1 class="w3-xxxlarge"
+            style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
+            E-Voting V2</h1>
+          <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Ritam Das, Brian Macomber
+          </h1>
         </div>
-        <script>
-          function Reset() {
-            //this is where socket io resets
-            flag = 1
-          }
-        </script>
-
+        <h1>Total Vote Information</h1>
+      <!-- reset button
+        -->
+      <div id="ResetButton" align="center" style="height: 60px; width: 1500px">
+      <button class="button button1" onclick="Reset()">Reset</button>
   
     <div id="chartContainer" style="height: 0px; width: 100%"></div>
     <div class="w3-container">
@@ -127,6 +70,9 @@ Quest 4 - E-Voting v2
       <div class="w3-padding-16"></div>
       <div class="w3-responsive w3-card-4 w3-center" style="width:100%;">
 
+    <div id="message1"></div>
+    <div id="message2"></div>
+    <div id="message3"></div>
       <table>
         <tr>
           <th>Candidate</th>
@@ -134,53 +80,98 @@ Quest 4 - E-Voting v2
         </tr>
         <tr>
           <td>Red</td>
-          <td>
-            <script>
-            document.getElementById("red").innerHTML = Red;
-          </script>
-          </td>
+          <td id="red_id"></td>
         </tr>
         <tr>
           <td>Green</td>
-          <td>
-
-          </td>
+          <td id="green_id"></td>
         </tr>
         <tr>
           <td>Blue</td>
-          <td>
-
-          </td>
+          <td id="blue_id"></td>
         </tr>
       </table>
 
-    </div>
     <h1>Individual Voter Information</h1>
     <table>
-      <tr>
-        <th>Candidate</th>
-        <th>FOB ID</th>
-        <th>Time Stamp</th>
-      </tr>
-      <tr>
-        <th>
-          <script>
-           
-          </script>
-        </th>
-        <th>
-          <script>
-         
-          </script>
-        </th>
-        <th>
-          <script>
-           
-          </script>
-        </th>
-      </tr>
+      <!-- create table based on array populated -->
+      <!-- <script>
+        let table = document.querySelector("table");
+        let data = Object.keys(db_table[0]);
+        generateTableHead(table,data);
+        generateTable(table,db_table);
+      </script> -->
+
     </table>
+    <script>
+      var Red=0, Blue=0, Green=0, Flag=0;
+      var socket = io();
+      var db_table = []
+      
+      function generateTableHead(table, data){
+        let thead = table.createTHead();
+        let row = thead.insertRow();
+        for (let key of data){
+          let th = document.createElement("th");
+          let text = document.createTextNode(key);
+          th.appendChild(text);
+          row.appendChild(th);
+        }
+      }
+
+      function generateTable(table, data){
+        for (let element of data){
+          let row = table.insertRow();
+          for (key in element){
+            let cell = row.insertCell();
+            let text = document.createTextNode(elemnet[key]);
+            cell.appendChild(text);
+          }
+        }
+      }
+
+      function Reset() {
+        //this is where socket io resets
+        Flag = 1
+      }
+
+      function loaded(){
+        var timestamp;
+        var fobID;
+        Red = 0;
+        Blue = 0; 
+        Green = 0;
+        counter = 0;
+
+        socket.on("message", function (msg) {
+          // Parse received message from server
+            timestamp = Object.keys(msg)[0];
+            fobID = msg[Object.keys(msg)][0].id;
+            vote = msg[Object.keys(msg)][0].vote;
+
+            // db_table.push({"timestamp": timestamp, "fobID": fobID,"Vote": vote})
     
+            if (vote == 'R') {
+              Red++;
+            } else if (vote == 'G') {
+              Green++;
+            } else{
+              Blue++;
+            }
+            
+        });
+            document.getElementById("red_id").innerHTML = Red;
+            document.getElementById("blue_id").innerHTML = Blue;
+            document.getElementById("green_id").innerHTML = Green;
+      }
+
+      if (Flag){
+        socket.emit("flag", 1);
+        Flag = 0
+      }
+
+      setInterval(loaded(),2000);  
+    </script>
 
   </body>
 </html>
