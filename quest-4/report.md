@@ -41,7 +41,7 @@ Quest 4 required us to create multiple voting fobs using ESP32's that would comm
 
 ### Node.js & Web Client
 
-The server.js file reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server creates a DB and puts this info into the DB in json format.
+The server.js file creates the web client and reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server creates a DB and puts this info into the DB in json format.
 
 ` db - Key : Value`
 `{ time: [ date.now() ], fobID: [1], vote: [R] }`
