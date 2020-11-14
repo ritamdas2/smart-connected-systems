@@ -5,20 +5,24 @@ Authors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 ## Date: 2020-11-13
 
 ## Summary
+Quest 4 required us to create multiple voting fobs using ESP32's that would communicate with each other via TX/RX communication and UDP. The voting fobs communicate with a leader fob through UDP. The leader collects fob ID's and their respective votes and sends it over UDP to the node server's socket. This information gets inserted into a levelDB along with a time stamp. The node server hosts the web client, which has an html display to visualize the database and keep a running count of RGB votes. (Reference Diagram Below)
+# *******BRIAN IS THIS^^^^^^ OKAY?????*******
 
 ## Self-Assessment
 
+
+
 ### Objective Criteria
 
-| Objective Criterion | Rating | Max Value |
-| ------------------- | :----: | :-------: |
-| Objective One       |        |     1     |
-| Objective Two       |        |     1     |
-| Objective Three     |        |     1     |
-| Objective Four      |        |     1     |
-| Objective Five      |        |     1     |
-| Objective Six       |        |     1     |
-| Objective Seven     |        |     1     |
+| Objective Criterion               | Rating | Max Value |
+| ----------------------------------| :----: | :-------: |
+| Fob performs IR NFC Data Exchange |    1   |     1     |
+| Receiving Fob Comm. to Leader     |    1   |     1     |
+| Poll Leader Replacement           |    1   |     1     |
+| Leader Reports to DB              |    1   |     1     |
+| Portal Allows Query to DB         |    1   |     1     |
+| Operates Over Multiple Sites      |    1   |     1     |
+| Investigative Question            |    1   |     1     |
 
 ### Qualitative Criteria
 
@@ -30,6 +34,24 @@ Authors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 | Quality of video presentation                  |        |     3     |
 
 ## Solution Design
+
+### Hardware & Embedded C
+***************BRI ANNE************* add esp code/hardware info
+### Node.js & Web Client
+The server.js file reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server also puts this info into a LevelDB in json format. 
+
+` db - Key : Value
+
+    {
+        time: [ date.now() ],
+        fobID: [1],
+        vote: [R]
+    }
+`
+
+********************RAGU******************* add web client info
+
+
 
 #### Investigative Question: List 5 different ways that you can hack the system (including influencing the vote outcome or preventing votes via denial of service). Explain how you would mitigate these issues in your system.
 
@@ -47,7 +69,7 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 
 
 ## Sketches and Photos
-![Screen Shot 2020-11-13 at 3 02 03 PM](https://user-images.githubusercontent.com/37518854/99116278-c04b2c80-25c1-11eb-87f1-6f6455189958.png)
+![Screen Shot 2020-11-13 at 7 07 56 PM](https://user-images.githubusercontent.com/37518854/99132348-d9fd6b80-25e3-11eb-9b42-1e4706170aac.png)
 
 <center><img src="./images/ece444.png" width="25%" /></center>  
 <center> </center>
