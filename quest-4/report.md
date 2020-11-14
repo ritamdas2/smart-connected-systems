@@ -47,7 +47,7 @@ The server.js file reads in a time stamp, fob id, and vote from the ESP32 throug
 `{ time: [ date.now() ], fobID: [1], vote: [R] }`
 
 The data is queried and a message is emitted to the frontend. The frontend consists of an index.html file that displays these database queries in tabular format. Socket.io was used to send data from the fobs to the web client. The web client also contains a reset button that wipes the DB clean and allows for a new election.
-**\*\*\*\***\*\*\*\***\*\*\*\***RAGU**\*\*\*\***\*\*\***\*\*\*\*** add web client info
+The actual web client is being hosted on a local machine accessed through the server port. It refreshes every couple of seconds with the updated data or votes that are being sent in from the backend. When you press the reset button, it will send a message from the frontend to the backend using io.emit from the socket.io tool to delete the data being stored in the database.
 
 #### Investigative Question: List 5 different ways that you can hack the system (including influencing the vote outcome or preventing votes via denial of service). Explain how you would mitigate these issues in your system.
 
