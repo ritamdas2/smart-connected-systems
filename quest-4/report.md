@@ -41,7 +41,6 @@ Quest 4 required us to create multiple voting fobs using ESP32's that would comm
 The server.js file reads in a time stamp, fob id, and vote from the ESP32 through UDP socket. The server also puts this info into a LevelDB in json format. 
 
 ` db - Key : Value`
-
     {
         time: [ date.now() ],
         fobID: [1],
