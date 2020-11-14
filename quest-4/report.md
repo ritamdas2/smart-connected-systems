@@ -6,9 +6,11 @@ Authors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 
 ## Summary
 
-Quest 4 required us to create multiple voting fobs using ESP32's that would communicate with each other via TX/RX communication and UDP. The voting fobs communicate with a leader fob through UDP. The leader collects fob ID's and their respective votes and sends it over UDP to the node server's socket. This information gets inserted into a levelDB along with a time stamp. The node server hosts the web client, which has an html display to visualize the database and keep a running count of RGB votes. (Reference Diagram Below)
+Quest 4 required us to create multiple voting fobs using ESP32's that would communicate with each other via TX/RX communication and UDP. The voting fobs communicate with a leader fob through UDP. The leader collects fob ID's and their respective votes and sends it over UDP to the node server's socket. This information gets inserted into a levelDB along with the key as the time stamp. The node server hosts the web client, which renders an html file to visualize the database and keep a running count of RGB votes. (Reference Diagram Below)
 
-# **\*\*\***BRIAN IS THIS^^^^^^ OKAY?????**\*\*\***
+#### NOTE
+
+We did not finish the front end part of this quest. Data is successfully recieved by the web page and it displays an incorrect count of the votes. In addition, the button to reset the vote is not functional, as well as the list of all entries in the database.
 
 ## Self-Assessment
 
@@ -37,7 +39,9 @@ Quest 4 required us to create multiple voting fobs using ESP32's that would comm
 
 ### Hardware & Embedded C
 
-**\*\***\*\*\***\*\***BRI ANNE**\*\***\***\*\*** add esp code/hardware info
+The FOB has IR TX/RX to communicate votes privately from one ESP to another. If any ESP recieves a vote (candiate and voter ID) through IR, it will communicate that vote to the poll leader who will forward it to the node server. If the poll leader recieves or wants to send an IR vote, it will send directly to the node server.
+
+Each fob has the same .c code running on it with the excpetion of the ID being different for each one. Each ESP will connect to wifi and attempt to communicate through UDP with other ESPs on the system. This will cause a leader election, where the ESP with the lowest ID number will prevail as the leader. Every 30 seconds if it does not recieve a "Heartbeat" from the leader, a follower ESP will go into the election state to declare a new leader among the ESPs that are still comunicating. For a follower ESP, it sends out a signal to the others in the system every 6 seconds to let them know that they are a "follower" to a "leadder" that exists and has a heartbeat. The Leader esp will connect as client to the Nodejs server that handles the database.
 
 ### Node.js & Web Client
 
@@ -87,6 +91,12 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 - Node & LevelDB: for our server file and creating database to hold values and query from
 - Linereader: used to parse through data
 - Socket.io: for receiving and sending queries from backend to frontend on the client
+- esp-idf: starter code for many basic skills in this quest:
+  - WiFi
+  - IR TX/RX communication
+  - Timer
+  - Button hardware Interrupt
+  - RTOS tasks
 
 ## References
 
@@ -94,5 +104,6 @@ An unauthorized user could even steal the microSD card on the Pi and decode the 
 - Level: https://github.com/google/leveldb/blob/master/doc/index.md
 - HTML Button: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_button_css
 - Socket.io: https://socket.io/docs/v3/client-api/index.html
+- esp-idf: https://github.com/espressif/esp-idf
 
 ---
