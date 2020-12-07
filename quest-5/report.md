@@ -48,8 +48,9 @@ We would have the lidar mounted on the front to read distance and judge the spee
 
 <center><img src="./images/ece444.png" width="25%" /></center>  
 <center> </center>
+Figure 1:
+![Screen Shot 2020-12-07 at 1 54 36 PM](https://user-images.githubusercontent.com/37518854/101392436-c61bf100-3893-11eb-80da-895cb1f70fde.png)
 
-INSERT DIAGRAM PIC FIGURE 1 DIAGRAM
 
 BRIAN INSERT HARDWARE/CRAWLER PICS FIGURE 2 HARDWARE
 
