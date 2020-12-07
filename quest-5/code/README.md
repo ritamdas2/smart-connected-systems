@@ -1,8 +1,8 @@
 # Code Readme
+
 Quest 5: Cruise Control
 Authors: Ritam Das, Brian Macomber, and Raghurama Bukkarayasamudram
 Date: 2020-12-6
-
 
 # index.html
 
@@ -14,4 +14,4 @@ This file creates and hosts a server through UDP connection and node.js. This wa
 
 # crawler.c
 
-This file is the code that is on the crawler itself. Most of the functionality is implemented as separate RTOS Tasks to help organizatiion. It first initializes WiFi so the crawler can communcation over UDP with the node server. Then it calibrates the ESC by setting the PWM to te neutral value for 3 seconds, then the calibration sound should be heard. The speed control task will not begin until it has recieved at "START" signal over UDP from the node server. Once this happens, the car will start moving until it recieved a "STOP" message from the server, or the Lidar v4 at the front of the car detects an object within 40cm. While all of this happens, the alphanumeric display is always displaying the current speed relative to the motion of the wheels, the optical encoder is counting pulses and calculating wheel speed in m/s, and the Lidar is constantly checking the distance.
+This file is the code that is on the crawler itself. Most of the functionality is implemented as separate RTOS Tasks to help organization. It first initializes WiFi so the crawler can communication over UDP with the node server. Then it calibrates the ESC by setting the PWM to te neutral value for 3 seconds, then the calibration sound should be heard. The speed control task will not begin until it has received at "START" signal over UDP from the node server. Once this happens, the car will start moving until it received a "STOP" message from the server, or the Lidar v4 at the front of the car detects an object within 40cm. While all of this happens, the alphanumeric display is always displaying the current speed relative to the motion of the wheels, the optical encoder is counting pulses and calculating wheel speed in m/s, and the Lidar is constantly checking the distance.
