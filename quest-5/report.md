@@ -1,6 +1,6 @@
 # Quest 5: Cruise Control
 
-Authors: Ritam Das, Brian Macomber, and Raghurama Bukkarayasamudram
+Authors: Ritam Das, Brian Macomber, and Raghurama Bukkarayasamudram 
 Date: 2020-12-6
 
 ---
