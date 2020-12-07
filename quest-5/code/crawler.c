@@ -936,7 +936,6 @@ static void alpha_display_task()
     uint16_t displaybuffer[8];
     int temp_speed, temp;
     char nums[4];
-    char yonk[4] = "yonk";
 
     // Continually writes the same command
     while (1)
@@ -991,28 +990,30 @@ void drive_control(void *arg)
 {
     uint32_t count;
     int i = 0;
-    while (1)
+    while (running)
     {
-
-        // start at neutral, go forward to 900 microsecond pwm
-        for (count = DRIVE_NEUTRAL_PULSEWIDTH; count < (DRIVE_NEUTRAL_PULSEWIDTH + 100); count += 5)
+        if (i == 0)
+        {
+            for (count = DRIVE_NEUTRAL_PULSEWIDTH; count < (DRIVE_NEUTRAL_PULSEWIDTH + 100); count += 5)
+            {
+                mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, count);
+                vTaskDelay(100 / portTICK_RATE_MS);
+            }
+        }
+        else
         {
             mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, count);
-            vTaskDelay(100 / portTICK_RATE_MS);
         }
 
-        vTaskDelay(5000 / portTICK_RATE_MS);
-
-        // go back to neutral at 1200 microsecond pwm
-        for (count = (DRIVE_NEUTRAL_PULSEWIDTH + 100); count > DRIVE_NEUTRAL_PULSEWIDTH; count -= 5)
+        if (objFlag) // if object detected- STOP
         {
-            mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, count);
-            vTaskDelay(100 / portTICK_RATE_MS);
+            break;
         }
 
-        mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, DRIVE_NEUTRAL_PULSEWIDTH);
-        vTaskDelay(5000 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
     }
+    mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, DRIVE_NEUTRAL_PULSEWIDTH);
+    vTaskDelete(NULL);
 }
 
 static void udp_client_task(void *pvParameters)
@@ -1062,14 +1063,14 @@ static void udp_client_task(void *pvParameters)
                 // data from server recieved here in the rx_buffer variable
 
                 printf("%s\n", rx_buffer);
-                // if (strstr(rx_buffer, "START") != NULL)
-                // {
-                //   running = true;
-                // }
-                // else if (strstr(rx_buffer, "STOP") != NULL)
-                // {
-                //   running = false;
-                // }
+                if (strstr(rx_buffer, "START") != NULL)
+                {
+                    running = true;
+                }
+                else if (strstr(rx_buffer, "STOP") != NULL)
+                {
+                    running = false;
+                }
 
                 ESP_LOGI(UDP_TAG, "%s", rx_buffer);
                 if (strncmp(rx_buffer, "OK: ", 4) == 0)
@@ -1116,7 +1117,7 @@ void distance_task()
 void app_main(void)
 {
     //initialize Wifi
-    // wifi_init();
+    wifi_init();
 
     // initialize pwm for esc and steering servo - then calibrate the esc
     pwm_init();
@@ -1134,7 +1135,7 @@ void app_main(void)
     i2c_scanner();
 
     // for recieving commands from UDP server
-    // xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
+    xTaskCreate(udp_client_task, "udp_client", 4096, NULL, 5, NULL);
 
     //for wheel speed
     xTaskCreate(speed_sensor_task, "speed_sensor_task", 4096, NULL, 5, NULL);
@@ -1145,7 +1146,7 @@ void app_main(void)
     xTaskCreate(alpha_display_task, "alpha_display_task", 4096, NULL, 5, NULL);
 
     // for emergency stop if there is an object detected
-    // xTaskCreate(distance_task, "distance_task", 4096, NULL, 5, NULL);
+    xTaskCreate(distance_task, "distance_task", 4096, NULL, 5, NULL);
 
     //steering control and drive control
     // xTaskCreate(steering_control_task, "steering_control_task", 4096, NULL, 5, NULL);
