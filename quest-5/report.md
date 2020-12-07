@@ -65,7 +65,7 @@ Demo Video
 - [Link to video demo](). Not to exceed 120s
 
 Quest Breakdown
-- [Link to ppt video](https://youtu.be/U2N28mCyBY4).
+[![](http://img.youtube.com/vi/U2N28mCyBY4/0.jpg)](http://www.youtube.com/watch?v=U2N28mCyBY4)
 
 ## Modules, Tools, Source Used Including Attribution
 
