@@ -4,28 +4,19 @@ Date: 12/06/2020
 Quest 5 - Cruise Control
 */
 
-// Here is code for the nodejs server:
-// - create webclient
-// - send and recieve messages from webclient (using socket.io)
-// - Create Database
-// - Add entries (votes) to database once recieved from ESP
-
-//We're going to addapt code from an example that Matt gave:
 /////////////////////////////////////////////////////////
 //                      Modules                       //
 /////////////////////////////////////////////////////////
 
-var level = require("level");
 var express = require("express");
 var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
-//var rimraf = require("rimraf");
+var dgram = require("dgram");
 
 /////////////////////////////////////////
 // UDP comms with Leader ESP
 
-var dgram = require("dgram");
 // Port and IP
 var PORT = 1131;
 var HOST = "10.0.0.113"; //ip of my laptop
@@ -44,18 +35,6 @@ server.on("listening", function () {
 // On connection, print out received message
 server.on("message", function (message, remote) {
   console.log(remote.address + ":" + remote.port + " - " + message);
-
-  // Get current time
-  var date = Date.now();
-
-  // Fill in data structure
-  var value = [
-    {
-      id: String.fromCharCode(message[0]),
-      vote: String.fromCharCode(message[2]),
-    },
-  ];
-  
 });
 
 /////////////////////////////////////////////////////
@@ -75,8 +54,15 @@ io.on("connection", (socket) => {
 
   socket.on("message", (arg) => {
     console.log(arg);
+    server.send(arg, PORT, HOST, function (error) {
+      if (error) {
+        console.log("ohno");
+      } else {
+        console.log("sent!");
+      }
+    })
   });
-  
+
   socket.on("disconnect", function () {
     console.log("user disconnected");
   });
