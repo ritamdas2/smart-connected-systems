@@ -11,24 +11,24 @@ This quest tasked us with adding autonomous capabilties to a crawler vehicle. We
 
 ### Objective Criteria
 
-| Objective Criterion    | Rating | Max Value |
-| ---------------------- | :----: | :-------: |
-| Remote control         |   1    |     1     |
-| Stops before collision |   1    |     1     |
-| PID for speed control  |   1    |     1     |
-| Speed displayed        |   1    |     1     |
-| Investigative Question |   1    |     1     |
-| Objective Six          |   1    |     1     |
-| Objective Seven        |   1    |     1     |
+| Objective Criterion                 | Rating | Max Value |
+| ------------------------------------| :----: | :-------: |
+| Remote Start/Stop                   |   1    |     1     |
+| Stops before collision              |   1    |     1     |
+| PID for speed control               |   0    |     1     |
+| Measures wheel speed                |   1    |     1     |
+| Displays speed on the alpha display |   1    |     1     |
+| Sucessfully traverse A to B         |   1    |     1     |
+| Controls Steering                   |   0    |     1     |
 
 ### Qualitative Criteria
 
 | Qualitative Criterion                          | Rating | Max Value |
 | ---------------------------------------------- | :----: | :-------: |
-| Quality of solution                            |        |     5     |
-| Quality of report.md including use of graphics |        |     3     |
-| Quality of code reporting                      |        |     3     |
-| Quality of video presentation                  |        |     3     |
+| Quality of solution                            |    3   |     5     |
+| Quality of report.md including use of graphics |    3   |     3     |
+| Quality of code reporting                      |    3   |     3     |
+| Quality of video presentation                  |    3   |     3     |
 
 ## Solution Design
 
