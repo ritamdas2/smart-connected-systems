@@ -12,22 +12,6 @@ Quest 5 - Cruise Control
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     
     <style>
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-    
-      td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
-    
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-
       .button {
         border: none;
         color: black;
@@ -42,6 +26,9 @@ Quest 5 - Cruise Control
 
       .button1 {
         background-color: #4CAF50;
+      }
+      .button2 {
+        background-color: #FF5733;
       }
     </style>
   
@@ -60,11 +47,11 @@ Quest 5 - Cruise Control
         <h1>Driving Instructions</h1>
       <!-- start button
         -->
-      <div id="ResetButton" align="left" style="height: 60px; width: 1550px">
+      <div id="START" align="left" style="height: 60px; width: 1550px">
       <button class="button button1" onclick="START()">START</button>
 
-      <div id="ResetButton" align="left" style="height: 60px; width: 1550px">
-      <button class="button button1" onclick="STOP()">STOP</button>
+      <div id="STOP" align="left" style="height: 60px; width: 1550px">
+      <button class="button button2" onclick="STOP()">STOP</button>
   
     <div id="chartContainer" style="height: 0px; width: 100%"></div>
     <div class="w3-container">
@@ -77,46 +64,19 @@ Quest 5 - Cruise Control
     <script>
       var Red=0, Blue=0, Green=0, Flag=0;
       var socket = io();
-      var db_table = []
-      
-      function generateTableHead(table, data){
-        let thead = table.createTHead();
-        let row = thead.insertRow();
-        for (let key of data){
-          let th = document.createElement("th");
-          let text = document.createTextNode(key);
-          th.appendChild(text);
-          row.appendChild(th);
-        }
-      }
 
-      function generateTable(table, data){
-        for (let element of data){
-          let row = table.insertRow();
-          for (key in element){
-            let cell = row.insertCell();
-            let text = document.createTextNode(elemnet[key]);
-            cell.appendChild(text);
-          }
-        }
-      }
-
+      // If flag = 1, send start message to console
       function START() {
-        //this is where message to start car is sent
         Flag = 1
+        console.log("START");
+        socket.emit("message", "START");
       }
 
+      // If flag = 0, send stop message to console
       function STOP() {
-        //This is where message to stop car is sent
         Flag = 0
-      }
-
-      // If flag = 1, send message to console with value 1 to signal start car
-      // else stop car with value 0
-      if (Flag){
-        socket.emit("Start flag", 1);        
-      } else {
-        socket.emit("Stop flag", 0);
+        console.log("STOP");
+        socket.emit("message", "STOP");
       }
 
       setInterval(loaded(),2000);  

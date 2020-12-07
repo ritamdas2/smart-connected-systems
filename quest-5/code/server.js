@@ -20,7 +20,7 @@ var express = require("express");
 var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
-var rimraf = require("rimraf");
+//var rimraf = require("rimraf");
 
 /////////////////////////////////////////
 // UDP comms with Leader ESP
@@ -28,7 +28,7 @@ var rimraf = require("rimraf");
 var dgram = require("dgram");
 // Port and IP
 var PORT = 1131;
-var HOST = "192.168.7.196"; //ip of my laptop
+var HOST = "10.0.0.113"; //ip of my laptop
 
 // Create socket
 var server = dgram.createSocket("udp4");
@@ -68,27 +68,18 @@ app.get("/", function (req, res) {
 
 // When a new client connects
 
-io.on("connection", function (socket) {
+//get message from front end
+io.on("connection", (socket) => {
+  console.log(socket.id);
   console.log("a user connected");
 
-  // socket.on("flag", function (data) {
-  //   console.log("START");
-  // });
-
+  socket.on("message", (arg) => {
+    console.log(arg);
+  });
+  
   socket.on("disconnect", function () {
     console.log("user disconnected");
   });
-});
-
-//get message from front end
-io.on("message", function (msg) {
-  console.log("recieved msg: " + msg);
-  //delete database here, then create new one
-  rimraf("./mydb", function () {
-    console.log("done");
-  });
-
-
 });
 
 ///////////////////////////////////////
