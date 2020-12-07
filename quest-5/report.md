@@ -1,4 +1,4 @@
-# Quest Cruise Control
+# Quest 5: Cruise Control
 
 Authors: Ritam Das, Brian Macomber, and Raghurama Bukkarayasamudram
 Date: 2020-12-6
@@ -32,11 +32,11 @@ This quest tasked us with adding autonomous capabilties to a crawler vehicle. We
 
 ## Solution Design
 
-Crawler:
+##### Crawler
 The crawler uses the ESC module to control the speed of the car. The ESC is powered using the onboard rechargable 7.2V battery, and using the 5V output of the ESC, we powered the H-bridge along with the servo for turning the wheels (since the turning servo is a high current device). Both of these are controlled on the ESP32 using PWM to change the speed/direction of the car. Additionally, the Lidar v4 is powered using the 3.3v from the ESP and is connected to the I2C bus 0 (slave address of 0x62) on the ESP. This sensor is mounted at the front of the car to for object detection, and it will trigger an emergency stop if an object is too close. On one of the wheels of the car, a black and white encoder design is mounted along with an optical encoder to count the number of black stripes in a given rotation, in a given period of time. Using the period of time, cicumference of the wheel, and the number of black stripes in that period of time, we calculated the speed of the car in m/s. This speed is then displayed on the Alphanumeric Display on the car. The Alphanumeric display is also wired using I2C, but on Bus 1 (slave address 0x70). All of these components can be seen in Figure 2 and Figure 3, and the crawler diagram can be seen in Figure 1. Lastly, the ESP32 is connected to WiFi and communicates wireless over UDP with the node server to recieve start and stop instructions.
 
 
-Node Server/Front End:
+##### Node Server/Front End:
 A node server was connected to an ESP32 over UDP socket communication on our local network. The web client allowed for start and stop functionality of the crawler. A boolean variable is set to either true or false permitting the car to either drive or stop.
 
 ## Investigative Question
