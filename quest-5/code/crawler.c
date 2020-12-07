@@ -1099,7 +1099,7 @@ void distance_task()
     while (true)
     {
         getDistance(&dist);
-        if (dist < 50)
+        if (dist < 40)
         {
             objFlag = 1;
         }
