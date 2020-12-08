@@ -49,6 +49,8 @@ Requirements:
 <center><img src="./images/ece444.png" width="25%" /></center>  
 <center> </center>
 
+![Screen Shot 2020-12-08 at 2 58 18 PM](https://user-images.githubusercontent.com/37518854/101534954-e4eab800-3965-11eb-8372-56eaa3a5ecab.png)
+
 ## Supporting Artifacts
 
 - [Link to video demo](). Not to exceed 120s
