@@ -10,6 +10,15 @@ For this quest, we had the option to create our own project. We decided to do a 
 
 One main ESP-32 (toast ESP) will be used to host the node server, "toast", show the toast timer, and control the servo. The second ESP-32 (start ESP) will be used exclusively to check for physical button input by which the data will be sent to toast ESP through WiFi to start the "toasting process".
 
+Requirements: 
+- Something meaningful: Smart Toaster
+- 2 Actuators: button, servo, or I2c
+- 3 Sensors: thermistor, IR, button
+- 1 Camera: pi webcam
+- Remote Control & Data presentation: temperature, image (toast progression) v. time
+- Time based function: Timer needed for toast
+- Multiple ESPs: toast ESP & start ESP (check for button thru remote control to start toasting)
+
 ## Self-Assessment
 
 ### Objective Criteria
