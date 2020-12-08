@@ -12,7 +12,7 @@ One main ESP-32 (toast ESP) will be used to host the node server, "toast", show 
 
 Requirements: 
 - Something meaningful: Smart Toaster
-- 2 Actuators: button, servo, or I2c
+- 2 Actuators: servo, alphanumeric display
 - 3 Sensors: thermistor, IR, button
 - 1 Camera: pi webcam
 - Remote Control & Data presentation: temperature, image (toast progression) v. time
