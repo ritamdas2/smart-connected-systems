@@ -62,7 +62,7 @@ Figure 3: Lidar + Wheel Speed sensor
 ## Supporting Artifacts
 
 #### Demo Video
-- [Link to video demo](). Not to exceed 120s
+[![](http://img.youtube.com/vi/tB2MOrUDSFE/0.jpg)](http://www.youtube.com/watch?v=tB2MOrUDSFE)
 
 #### Quest Breakdown
 [![](http://img.youtube.com/vi/U2N28mCyBY4/0.jpg)](http://www.youtube.com/watch?v=U2N28mCyBY4)
