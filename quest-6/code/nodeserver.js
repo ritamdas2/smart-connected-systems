@@ -20,7 +20,10 @@ var dgram = require("dgram");
 
 // Port and IP
 var PORT = 1131;
-var HOST = "10.0.0.113"; //ip of my laptop
+var HOST = "192.168.7.196"; //ip of my laptop
+
+var startFlag = false;
+var resetFlag = false;
 
 // Create socket
 var server = dgram.createSocket("udp4");
@@ -36,6 +39,37 @@ server.on("listening", function () {
 // On connection, print out received message
 server.on("message", function (message, remote) {
     console.log(remote.address + ":" + remote.port + " - " + message);
+
+    // once message recieved from client, send back appropriate message
+    if (startFlag) {
+        server.send("Start", remote.port, remote.address, function (error) {
+            if (error) {
+                console.log("error");
+            } else {
+                console.log("Start message sent!");
+            }
+        })
+        startFlag = false;
+    } else {
+        if (resetFlag) {
+            server.send("Stop", remote.port, remote.address, function (error) {
+                if (error) {
+                    console.log("error");
+                } else {
+                    console.log("Stop message sent!");
+                }
+            })
+            resetFlag = false;
+        } else {
+            server.send("NULL", remote.port, remote.address, function (error) {
+                if (error) {
+                    console.log("error");
+                } else {
+                    console.log("NULL message sent!");
+                }
+            })
+        }
+    }
 });
 
 /////////////////////////////////////////////////////
@@ -47,21 +81,23 @@ app.get("/", function (req, res) {
 });
 
 // When a new client connects
-
 //get message from front end
 io.on("connection", (socket) => {
     console.log(socket.id);
     console.log("a user connected");
 
-    socket.on("message", (arg) => {
+    socket.on("message", (arg) => { // recieved something from frontend
         console.log(arg);
-        server.send(arg, PORT, HOST, function (error) {
-            if (error) {
-                console.log("ohno");
+        // set some flag to Start or Reset based on what the button pushed was
+        if (arg === "Start") {
+            startFlag = true;
+        } else {
+            if (arg === "Reset") {
+                resetFlag = true;
             } else {
-                console.log("sent!");
+                // do nothing
             }
-        })
+        }
     });
 
     socket.on("disconnect", function () {
