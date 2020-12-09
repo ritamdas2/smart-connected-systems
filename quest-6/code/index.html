@@ -44,19 +44,19 @@ Quest 6 - Smart Toaster
     <div class="w3-center">
         <h1 class="w3-xxxlarge"
             style="text-align:left;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#1261A0;">
-            Cruise Control</h1>
+            Smart Toaster</h1>
         <h1 class="w3-large" style="text-align:left;font-family:candara;">Ram Bukkarayasamudram, Ritam Das, Brian
             Macomber
         </h1>
     </div>
-    <h1>Driving Instructions</h1>
+    <h1>Toasting Instructions</h1>
     <!-- start button
         -->
     <div id="START" align="left" style="height: 60px; width: 1550px">
         <button class="button button1" onclick="START()">START</button>
 
         <div id="STOP" align="left" style="height: 60px; width: 1550px">
-            <button class="button button2" onclick="STOP()">STOP</button>
+            <button class="button button2" onclick="RESET()">RESET</button>
 
             <div id="chartContainer" style="height: 0px; width: 100%"></div>
             <div class="w3-container">
@@ -67,24 +67,21 @@ Quest 6 - Smart Toaster
                         <!-- Pi cam here -->
                         <img src="http://192.168.7.212:8081/" alt="Pi Cam" width="640" height="480">
 
+
                         <script>
                             var socket = io();
 
                             // If flag = 1, send start message to console
                             function START() {
-                                Flag = 1
-                                console.log("START");
-                                socket.emit("message", "START");
+                                console.log("Start");
+                                socket.emit("message", "Start");
                             }
 
                             // If flag = 0, send stop message to console
-                            function STOP() {
-                                Flag = 0
-                                console.log("STOP");
-                                socket.emit("message", "STOP");
+                            function RESET() {
+                                console.log("Reset");
+                                socket.emit("message", "Reset");
                             }
-
-                            setInterval(loaded(), 2000);  
                         </script>
 
 </body>

@@ -86,10 +86,12 @@ static void udp_client_task(void *pvParameters)
                 if (strcmp(rx_buffer, "Start") == 0)
                 {
                     // start the countdown!!
+                    printf("Start the 20 second timer\n");
                 }
                 else if (strcmp(rx_buffer, "Reset") == 0)
                 {
                     // reset the timer back to 20!
+                    printf("Reset the timer back to 20\n");
                 }
                 else
                 {

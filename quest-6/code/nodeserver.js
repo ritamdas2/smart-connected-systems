@@ -52,11 +52,11 @@ server.on("message", function (message, remote) {
         startFlag = false;
     } else {
         if (resetFlag) {
-            server.send("Stop", remote.port, remote.address, function (error) {
+            server.send("Reset", remote.port, remote.address, function (error) {
                 if (error) {
                     console.log("error");
                 } else {
-                    console.log("Stop message sent!");
+                    console.log("Reset message sent!");
                 }
             })
             resetFlag = false;
@@ -91,11 +91,9 @@ io.on("connection", (socket) => {
         // set some flag to Start or Reset based on what the button pushed was
         if (arg === "Start") {
             startFlag = true;
-            console.log("Start Button Pressed")
         } else {
             if (arg === "Reset") {
                 resetFlag = true;
-                console.log("Reset Button Pressed")
             } else {
                 // do nothing
             }
