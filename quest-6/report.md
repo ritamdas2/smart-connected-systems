@@ -51,7 +51,7 @@ There are two ESP32s. One main ESP32 waiting on user input through Stop/Start bu
 BRIAN
 
 ### Node Server & Web Client
-The node server creates the web client locally on port 3000. On here it creates the '/' endpoint where it renders index.html, the '/data' endpoint where it streams data from the test_data.csv file. In addition to this, it creates a socket on local port 1131 to talk to the ESP-32s through UDP. It receives the formatted temperature data. This temperature data is displayed on the web client as a function of time. The web client also displays video footage from the Pi webcam to show toast progression. 
+The node server creates the web client locally on port 3000. On here it creates the '/' endpoint where it renders index.html, the '/data' endpoint where it streams data from the test_data.csv file. In addition to this, it creates a socket on local port 1131 to talk to the ESP-32s through UDP. It receives the formatted temperature data. This temperature data is displayed on the web client as a function of time. The web client also displays video footage from the Pi webcam to show toast progression. Relevant skills with minor adaptations invloved the canvasjs, nodejs, & Pi webcam skills.
 
 
 ## Sketches and Photos
