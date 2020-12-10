@@ -3,8 +3,6 @@ Contributors: Raghurama Bukkarayasamudram, Ritam Das, Brian Macomber
 Date: 12/10/2020
 Quest 6 - Smart Toaster
 */
-
-
 /////////////////////////////////////////////////////////
 //                      Modules                       //
 /////////////////////////////////////////////////////////
@@ -14,7 +12,17 @@ var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var dgram = require("dgram");
+const bodyParser = require("body-parser");
+var path = require("path");
+var fs = require("fs");
+var csv = require("csv-parse");
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// clear csv file every time the program is started
+fs.truncate("test_data.csv", 0, function () {
+  console.log("file cleared");
+});
 /////////////////////////////////////////
 // UDP comms with Toast ESP
 
@@ -39,6 +47,12 @@ server.on("listening", function () {
 // On connection, print out received message
 server.on("message", function (message, remote) {
     console.log(remote.address + ":" + remote.port + " - " + message);
+
+    //here we can append data to csv file
+    //add data to csv
+    fs.appendFile("test_data.csv", message, function (err) {
+        if (err) throw err;
+      });
 
     // once message recieved from client, send back appropriate message
     if (startFlag) {
@@ -76,8 +90,23 @@ server.on("message", function (message, remote) {
 /////////////////////////////////////////////////////
 
 // Points to index.html to serve webpage
+// app.get("/", function (req, res) {
+//     res.sendFile(__dirname + "/index.html");
+// });
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(path.join(__dirname + "/index.html"));
+  });
+
+app.get("/data", function (req, res) {
+    var data = []; // Array to hold all csv data
+    fs.createReadStream("test_data.csv")
+      .pipe(csv())
+      .on("data", (row) => {
+        data.push(row); // Add row of data to array
+        })
+      .on("end", () => {
+        res.send(data); // Send array of data back to requestor
+        });
 });
 
 // When a new client connects
